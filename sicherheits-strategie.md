@@ -974,3 +974,4 @@ ONE FOUNDATION
 ---
 
 *Ende der Resilienz-Strategie*
+
