@@ -71,7 +71,7 @@ Der Marktplatz ist **kein Kleinanzeigen-Portal mit Preisen**. Er ist ein **Ort d
 - Natürliche Ressourcen (Obstbäume, Kräuter, Holz)
 
 #### 🌍 Gemeinschafts-Angebote (Was wir zusammen machen)
-*"Apfelernte in Niedermörig - kommt vorbei und pflückt mit!"*
+*"Apfelernte in Niedermöllrich - kommt vorbei und pflückt mit!"*
 
 - Gemeinsame Projekte
 - Quests, an denen andere teilnehmen können
@@ -201,7 +201,7 @@ Zustand: "Gut"
 - Nach Ausleihe: Fofi-Scan dokumentiert Empfangen
 
 **Flow:**
-1. Timo sieht "Motorsäge" in Niedermörig
+1. Timo sieht "Motorsäge" in Niedermöllrich
 2. Klickt "Anfragen" → wählt Zeitraum (15.-17. Feb)
 3. Nachricht an Besitzer: "Kann ich die Motorsäge leihen?"
 4. Besitzer sagt zu → Kalender-Eintrag wird erstellt
@@ -238,12 +238,12 @@ Zustand: "Gut"
 #### US-9: Mehrere Gemeinschaften durchsuchen
 **Als** Nutzer
 **möchte ich** Marktplätze anderer Gemeinschaften sehen (wenn Vertrauen besteht)
-**damit** ich z.B. in Niedermörig nach Äpfeln suche.
+**damit** ich z.B. in Niedermöllrich nach Äpfeln suche.
 
 **Akzeptanzkriterien:**
 - Dropdown "Gemeinschaft auswählen"
 - Nur Gemeinschaften mit Vertrauensebene ≥ X
-- Ergebnisse zeigen Gemeinschafts-Tag ("aus Niedermörig")
+- Ergebnisse zeigen Gemeinschafts-Tag ("aus Niedermöllrich")
 
 ---
 
@@ -260,10 +260,10 @@ Zustand: "Gut"
 
 **Beispiel:**
 ```
-Quest: "Apfelernte in Niedermörig"
+Quest: "Apfelernte in Niedermöllrich"
 Beschreibung: "Wir ernten gemeinsam Äpfel. Jeder Teilnehmer bekommt einen Teil."
 Ressource: "Äpfel (200kg geschätzt)"
-Ort: Apfelwiese Niedermörig (Karte)
+Ort: Apfelwiese Niedermöllrich (Karte)
 Datum: 20. September 2026
 Teilnahme: Offen für vertrauenswürdige Gemeinschaften
 ```
@@ -660,18 +660,18 @@ Karte Vertrautloben:
 ### 6.2 Gemeinschafts-übergreifend
 
 **Beispiel:**
-- Vertrautloben & Niedermörig haben Vertrauen zueinander (Web of Trust)
+- Vertrautloben & Niedermöllrich haben Vertrauen zueinander (Web of Trust)
 - Vertrautloben sucht Äpfel (#äpfel)
 - Suchergebnisse zeigen:
   - Vertrautloben: 0 Treffer
-  - Niedermörig: "Apfelernte-Quest am 20. Sept" (200kg erwartet)
+  - Niedermöllrich: "Apfelernte-Quest am 20. Sept" (200kg erwartet)
 
 **Flow:**
-1. Timo (Vertrautloben) sieht Apfelernte in Niedermörig
+1. Timo (Vertrautloben) sieht Apfelernte in Niedermöllrich
 2. Klickt "Teilnehmen" → Quest-Teilnahme (siehe Quest-Modul)
 3. Am 20. Sept: Timo hilft bei Ernte
 4. Am Ende: Timo bekommt 10kg Äpfel → Fofi-Scan
-5. Marktplatz-Log: "Empfangen: 10kg Äpfel von Niedermörig"
+5. Marktplatz-Log: "Empfangen: 10kg Äpfel von Niedermöllrich"
 
 ### 6.3 Gemeinschafts-Angebote
 
@@ -724,8 +724,8 @@ Ebene 4: Familie/Kernteam (volles Vertrauen)
 Motorsäge (Vertrautloben):
 Sichtbarkeit: "≥ Ebene 2" (Freunde)
 
-→ Niedermörig hat Ebene 2 mit Vertrautloben
-→ Niedermörig sieht Motorsäge
+→ Niedermöllrich hat Ebene 2 mit Vertrautloben
+→ Niedermöllrich sieht Motorsäge
 → Kann anfragen, auszuleihen
 ```
 
@@ -735,13 +735,13 @@ Sichtbarkeit: "≥ Ebene 2" (Freunde)
 
 **Community-to-Community Trust:**
 ```
-Vertrautloben ↔ Niedermörig: Ebene 2 (Freunde)
+Vertrautloben ↔ Niedermöllrich: Ebene 2 (Freunde)
 Vertrautloben ↔ Nachbardorf: Ebene 1 (Bekannte)
 Vertrautloben ↔ Fremdes Dorf: Ebene 0 (kein Vertrauen)
 ```
 
 **Auswirkung:**
-- Niedermörig sieht Marktplatz von Vertrautloben (Ebene ≥2)
+- Niedermöllrich sieht Marktplatz von Vertrautloben (Ebene ≥2)
 - Nachbardorf sieht nur öffentliche Angebote (Ebene 1)
 - Fremdes Dorf sieht gar nichts (Ebene 0)
 
@@ -751,51 +751,84 @@ Vertrautloben ↔ Fremdes Dorf: Ebene 0 (kein Vertrauen)
 
 ---
 
-## 8. Fofi & QR-Code Integration
+## 8. Token-Scheine & QR-Code Integration
 
-### 8.1 Was ist ein Fofi?
+### 8.1 Was sind Token-Scheine?
 
-**Fofi = Persönlicher Token mit QR-Code**
+**Token-Scheine = Wertschätzungs-Scheine mit QR-Code**
 
 **Eigenschaften:**
-- Jeder Nutzer hat einen Fofi (physisch oder digital)
-- Fofi hat QR-Code → verlinkt zu Profil (verschlüsselt über Web of Trust)
-- Fofi dokumentiert: Geben & Empfangen
+- Physische Scheine (gedruckt im Money-Printer) + digitale Variante
+- Haben **suggerierten Wert** drauf (50, 100, etc.) - NUR um Kognitivität zu durchbrechen!
+- Jeder Schein hat **QR-Code** → verlinkt zum aktuellen Besitzer (verschlüsselt über Web of Trust)
+- Dokumentieren: Geben & Empfangen
+
+**Zwei Verwendungen:**
+1. **Persönlich geben:** Ich scanne deinen QR-Code → Schein wird zu dir transferiert
+2. **Marktplatz-Wertschätzung:** Ich lege Schein in Korb (Marktplatz-Raum) → System scannt → wird verbucht
 
 **Wichtig:**
-- Fofi ist **KEIN Geld** (keine Schuld, kein Tausch)
-- Fofi ist **Dokumentations-Tool** (Sichtbarkeit schaffen)
-- Fofi ist **Vertrauens-Anker** (wer gibt, wer empfängt)
+- Token-Scheine sind **KEIN Geld** (keine Schuld, kein Tausch)
+- Suggerierter Wert ist **symbolisch** ("50 Dank" statt "50 Euro")
+- Es ist **Dokumentations-Tool** (Sichtbarkeit schaffen)
+- Es ist **Vertrauens-Anker** (wer gibt, wer empfängt)
 
-### 8.2 Fofi-Scan im Marktplatz
+**Digital + Physisch parallel:**
+- Teil der Scheine physisch gedruckt
+- Teil digital in App verfügbar
+- Beide funktionieren gleich (QR-Code-Scan)
+- Digital: "50 Dank" (statt "50 Token" - besser für Philosophie!)
 
-**Use Case: Ressource empfangen**
+### 8.2 Token-Schein-Scan im Marktplatz
+
+**Use Case 1: Persönliche Wertschätzung geben**
 
 **Flow:**
 1. Teo gibt Timo 5kg Äpfel
-2. Teo öffnet Marktplatz → "Geben"
-3. Scannt Timos Fofi (QR-Code)
-4. App erkennt: Timo (via Web of Trust)
-5. Teo wählt: Ressource "Äpfel", Menge "5kg"
-6. Bestätigt
-7. Eintrag im Marktplatz-Log:
+2. Timo möchte Wertschätzung zeigen
+3. Timo gibt Teo einen Token-Schein (z.B. "50 Dank")
+4. Teo scannt QR-Code → App erkennt: Schein gehört jetzt Teo
+5. System-Eintrag im Log:
    ```
    Transaktion:
-   Geber: Teo
-   Empfänger: Timo
-   Ressource: Äpfel
-   Menge: 5kg
+   Geber: Timo
+   Empfänger: Teo
+   Wertschätzung: 50 Dank
+   Kontext: "5kg Äpfel empfangen"
    Zeitpunkt: 6. Feb 2026, 14:30
-   Ort: Niedermörig (optional)
+   Ort: Niedermöllrich (optional)
    ```
 
-**Use Case: Werkzeug ausleihen**
+**Use Case 2: Marktplatz-Raum (24/7 offen)**
+
+**Konzept:**
+- Raum mit Waren (Getränke, Kartoffeln, Gemüse, Marmelade)
+- Waren haben **QR-Codes**
+- Korb für Wertschätzung (Scheine reinlegen)
+
+**Flow:**
+1. Timo geht in Marktplatz-Raum (24/7 offen)
+2. Sieht Marmelade (selbst eingekocht)
+3. Scannt QR-Code der Marmelade → App: "Marmelade (von Ida)"
+4. Bestätigt "Nehmen"
+5. System: Marmelade wird aus Bestand entfernt, Timo als Empfänger eingetragen
+6. Timo legt Token-Schein in Korb (z.B. "50 Dank")
+7. System scannt Korb (automatisch oder manuell) → Wertschätzung verbucht
+
+**Alternativ: Digitale Wertschätzung**
+- Timo hat keine physischen Scheine dabei
+- Nutzt digitale Variante in App
+- "50 Dank" wird digital transferiert
+- Kein physischer Schein nötig
+
+**Use Case 3: Werkzeug ausleihen**
 
 **Flow:**
 1. Timo leiht Motorsäge von Ida
-2. Bei Abholung: Ida scannt Timos Fofi → "Gegeben: Motorsäge"
-3. Bei Rückgabe: Ida scannt Timos Fofi → "Empfangen: Motorsäge"
-4. Marktplatz-Log zeigt:
+2. Bei Abholung: Ida scannt Timos Profil-QR → "Motorsäge an Timo gegeben"
+3. Optional: Timo gibt Ida Token-Schein als Dank
+4. Bei Rückgabe: Ida scannt wieder → "Motorsäge zurück"
+5. Marktplatz-Log zeigt:
    ```
    Ausleihe:
    Werkzeug: Motorsäge
@@ -803,26 +836,91 @@ Vertrautloben ↔ Fremdes Dorf: Ebene 0 (kein Vertrauen)
    Besitzer: Ida
    Abholung: 15. Feb 2026, 10:00
    Rückgabe: 17. Feb 2026, 16:00
+   Wertschätzung: 50 Dank (optional)
    ```
 
-### 8.3 Verschlüsselung & Web of Trust
+### 8.3 Marktplatz-Raum Details
 
-**Problem:** QR-Code soll nicht öffentlich Profile offenlegen.
+**Was ist der Marktplatz-Raum?**
+
+Ein **24/7 offener Raum** mit Waren, die Menschen der Gemeinschaft zur Verfügung stellen.
+
+**Inhalt:**
+- Getränke (selbst gemacht, gekauft)
+- Lebensmittel (Kartoffeln, Gemüse, Obst)
+- Verarbeitetes (Marmelade, Brot, eingekochtes)
+- Eventuell: Handwerk (selbst gemachte Seifen, Kerzen, etc.)
+
+**System:**
+1. **Waren haben QR-Codes**
+   - Jede Ware bekommt QR-Code (gedruckt, aufgeklebt)
+   - QR-Code enthält: Ware, Menge, Geber, Kategorie
+
+2. **Nehmen = Scannen**
+   - Ich scanne Ware → App: "Marmelade (von Ida), 500g"
+   - Bestätige "Nehmen"
+   - System: Ware aus Bestand entfernt, mir zugeordnet
+
+3. **Wertschätzung geben**
+   - **Physisch:** Token-Schein in Korb legen
+   - **Digital:** In App "Wertschätzung geben" (50 Dank)
+   - System verbucht
+
+**Kategorien-Datenbank:**
+
+Um Eingabe zu erleichtern, gibt es vordefinierte Kategorien + Waren:
+
+```
+Kategorie: Lebensmittel
+  - Äpfel (Einheit: kg)
+  - Kartoffeln (Einheit: kg)
+  - Eier (Einheit: Stück)
+  - Milch (Einheit: Liter)
+
+Kategorie: Verarbeitetes
+  - Marmelade (Einheit: Glas, ml)
+  - Brot (Einheit: Stück, kg)
+  - Honig (Einheit: Glas, ml)
+
+Kategorie: Getränke
+  - Apfelsaft (Einheit: Liter, Flasche)
+  - Bier (Einheit: Flasche)
+  - Limonade (Einheit: Flasche, Liter)
+
+Kategorie: Handwerk
+  - Seife (Einheit: Stück, g)
+  - Kerze (Einheit: Stück)
+```
+
+**Vorteile:**
+- Schnelle Eingabe (Dropdown statt Freitext)
+- Einheitliche Maßeinheiten
+- Statistiken möglich ("Wie viel Äpfel wurden geteilt?")
+- Erweiterbar (Community kann Kategorien/Waren hinzufügen)
+
+**Beide Varianten möglich:**
+- **Manuelle Eingabe:** Ich trage ein, was ich genommen habe
+- **QR-Code-Scan:** Automatisch (empfohlen für MVP)
+
+### 8.4 Verschlüsselung & Web of Trust
+
+**Problem:** QR-Code auf Token-Schein soll nicht öffentlich Profile offenlegen.
 
 **Lösung: Web of Trust Verschlüsselung**
 
 **Mechanismus:**
-1. Fofi-QR-Code enthält: `encrypted_profile_id`
+1. Token-Schein-QR enthält: `encrypted_owner_id` + `token_id`
 2. Nur Nutzer mit Vertrauensebene ≥1 können entschlüsseln
-3. Scanner-App prüft: "Habe ich Vertrauen zu dieser Person?"
-4. Wenn ja: Profil wird geladen
+3. Scanner-App prüft: "Habe ich Vertrauen zur Person, die den Schein besitzt?"
+4. Wenn ja: Transaktion möglich (Schein wechselt Besitzer)
 5. Wenn nein: "Kein Vertrauen - Transaktion nicht möglich"
 
 **Details (für Anton & Web of Trust Team):**
 - Verschlüsselung via Public-Key Cryptography
-- Fofi-QR enthält: `{ encrypted_id, public_key }`
+- Schein-QR enthält: `{ token_id, encrypted_owner_id, public_key }`
 - Scanner-App entschlüsselt mit eigenem Private Key (wenn Vertrauen besteht)
 - Falls kein Vertrauen: Anfrage möglich ("Möchtest du Vertrauen aufbauen?")
+- Bei Transfer: `owner_id` wird aktualisiert, QR bleibt gleich (nur Besitzer ändert sich im System)
 
 ---
 
@@ -835,7 +933,7 @@ Vertrautloben ↔ Fremdes Dorf: Ebene 0 (kein Vertrauen)
 **Lösung: Ressourcen, Locations, Events auf Karte**
 
 **Use Cases:**
-- "Wo sind die Apfelbäume in Niedermörig?"
+- "Wo sind die Apfelbäume in Niedermöllrich?"
 - "Wo ist die Werkstatt?"
 - "Wo steht der Traktor gerade?"
 - "Wo treffen wir uns zur Apfelernte?"
@@ -960,10 +1058,10 @@ Kalender:
 
 **Beispiele:**
 
-#### Quest: "Apfelernte in Niedermörig"
+#### Quest: "Apfelernte in Niedermöllrich"
 ```
 Beschreibung: "Wir ernten gemeinsam Äpfel. Jeder Teilnehmer bekommt einen Teil."
-Ort: Apfelwiese Niedermörig (Karte)
+Ort: Apfelwiese Niedermöllrich (Karte)
 Datum: 20. September 2026
 Teilnahme: Offen für vertrauenswürdige Gemeinschaften
 Erzeugt: Ressource "Äpfel (200kg geschätzt)"
@@ -1002,7 +1100,7 @@ Erzeugt: Infrastruktur "Werkstatt" (Marktplatz)
 **Konzept:** Andere Gemeinschaften können an Quests teilnehmen (wenn Vertrauen besteht).
 
 **Beispiel:**
-- Niedermörig macht "Apfelernte-Quest"
+- Niedermöllrich macht "Apfelernte-Quest"
 - Vertrautloben hat Vertrauen (Ebene 2)
 - Vertrautloben-Mitglieder sehen Quest auf Marktplatz
 - Können teilnehmen
@@ -1030,7 +1128,7 @@ Erzeugt: Infrastruktur "Werkstatt" (Marktplatz)
 ### 12.2 Marktplatz-Übersicht
 
 **Filter:**
-- Gemeinschaft (Dropdown: Eigene, Niedermörig, Alle vertrauenswürdigen)
+- Gemeinschaft (Dropdown: Eigene, Niedermöllrich, Alle vertrauenswürdigen)
 - Typ (Begabungen, Bedürfnisse, Ressourcen, Gemeinschafts-Angebote)
 - Hashtags (Autocomplete)
 - Verfügbarkeit (Jetzt, Bald, Irgendwann)
@@ -1106,7 +1204,7 @@ Erzeugt: Infrastruktur "Werkstatt" (Marktplatz)
 │ Empfangen                       │
 ├─────────────────────────────────┤
 │ 5kg Äpfel                       │
-│ von Teo (Niedermörig)           │
+│ von Teo (Niedermöllrich)           │
 │ 6. Feb 2026, 14:30              │
 │ [Fofi-Scan]                     │
 ├─────────────────────────────────┤
@@ -1149,8 +1247,20 @@ Erzeugt: Infrastruktur "Werkstatt" (Marktplatz)
 - Optional: Verfügbarkeit (Freitext, KEIN Kalender im MVP)
 
 ✅ **Marktplatz-Log:**
-- Manuell eintragen (KEIN Fofi-Scan im MVP)
+- Manuell eintragen (KEIN Token-Schein-Scan im MVP)
 - Liste: Was, von wem/an wen, Menge, Datum
+- Optional: Wertschätzung (Token-Scheine) manuell eintragen
+
+✅ **Kategorien & Waren:**
+- Vordefinierte Kategorien-Datenbank
+- Strukturierte Eingabe (Kategorie → Ware → Menge + Einheit)
+- Erweiterbar durch Community
+
+✅ **Karte:**
+- Einfache Karten-Ansicht (OSM/Leaflet)
+- Marker für Ressourcen & Locations
+- Tippen → Detailansicht
+- KEINE Mikro-Kartierung im MVP
 
 ✅ **Einfache Suche:**
 - Hashtags
@@ -1161,12 +1271,11 @@ Erzeugt: Infrastruktur "Werkstatt" (Marktplatz)
 
 **Was NICHT im MVP (kommt später):**
 
-❌ Fofi-Scan (zu komplex für Start)
-❌ Karten-Integration (zu aufwändig)
+❌ Token-Schein-Scan (zu komplex für Start - erst manuell)
+❌ Mikro-Kartierung (erst einfache Karte, Details später)
 ❌ Kalender-Integration für Ressourcen (zu komplex)
-❌ Web of Trust Verschlüsselung (später)
 ❌ AI-basiertes Matching (später)
-❌ Mikro-Kartierung (später)
+❌ Automatische Marktplatz-Raum-Scans (erst manuell)
 
 ---
 
@@ -1321,19 +1430,21 @@ Notizen: "Alles gut gelaufen, danke!"
 
 ## 14. Offene Fragen
 
-### 14.1 Fofi-Scan Implementierung
+### 14.1 Token-Schein-Scan Implementierung
 
 **Frage:** Wie genau funktioniert die QR-Code-Verschlüsselung über Web of Trust?
 
 **Kontext:**
-- Fofi hat QR-Code → soll zu Profil verlinken
+- Token-Schein hat QR-Code → soll zu Besitzer verlinken
 - Aber: Nicht öffentlich (nur bei Vertrauen)
 - Verschlüsselung nötig
+- Schein wechselt Besitzer → QR bleibt gleich, nur `owner_id` ändert sich
 
 **Für Anton & Web of Trust Team:**
 - Public-Key Cryptography?
 - Challenge-Response-Mechanismus?
 - Wie wird Vertrauensebene geprüft (Client-side oder Server-side)?
+- Wie wird Transfer dokumentiert (Blockchain, zentrale DB, dezentral)?
 
 ---
 
@@ -1352,18 +1463,16 @@ Notizen: "Alles gut gelaufen, danke!"
 
 ### 14.3 Ressourcen-Verfügbarkeit
 
-**Frage:** MVP mit Freitext oder direkt Kalender-Integration?
+**Entscheidung getroffen:** Kalender-Integration kommt später (nach MVP)
 
-**Option A (MVP):** Freitext
+**MVP:** Freitext
 - "Meistens verfügbar, einfach fragen"
-- Einfach, aber ungenau
+- Einfach, aber ausreichend für Start
 
-**Option B (später):** Kalender
+**v2:** Kalender
 - Ressource hat Kalender (wie Location)
 - Nutzer sehen freie Zeiträume
 - Buchungen blockieren Zeiträume
-
-**Empfehlung:** MVP mit Freitext, Kalender in v2
 
 ---
 
@@ -1387,59 +1496,62 @@ Notizen: "Alles gut gelaufen, danke!"
 
 ### 14.5 Kartierung im MVP?
 
-**Frage:** Karte im MVP oder später?
+**Entscheidung getroffen:** JA, Karte kommt schon im MVP!
 
-**Pro Karte im MVP:**
+**Begründung:**
 - "Wo ist was?" ist Killer-Feature
-- Visualisierung hilft Verständnis
-- Locations/Ressourcen machen mehr Sinn
+- Visualisierung hilft Verständnis massiv
+- Locations/Ressourcen machen erst mit Karte richtig Sinn
+- Technisch machbar (OSM/Leaflet)
 
-**Contra Karte im MVP:**
-- Komplex (Map-Integration, Markers, Layers)
-- Usability-Risiko (zu viel auf einmal)
-- Freitext-Ort reicht erstmal
-
-**Empfehlung:** Karte in v1.5 (nach MVP-Launch, vor v2)
+**MVP-Scope:**
+- Einfache Karte mit Markern
+- Ressourcen & Locations zeigen
+- Tippen auf Marker → Detailansicht
+- KEINE Mikro-Kartierung (kommt später)
 
 ---
 
 ### 14.6 Mengenangaben
 
-**Frage:** Wie werden Mengenangaben gehandhabt?
+**Entscheidung getroffen:** Strukturiert mit Kategorien-Datenbank!
+
+**System:**
+- Kategorien vordefiniert (Lebensmittel, Verarbeitetes, Getränke, Handwerk)
+- Waren innerhalb Kategorien (Äpfel, Kartoffeln, Marmelade, etc.)
+- Jede Ware hat Einheiten (kg, Liter, Stück, Glas)
+- Eingabe: Dropdown (Kategorie) → Dropdown (Ware) → Zahl + Einheit
 
 **Beispiel:**
-- Bedürfnis: "50kg Äpfel"
-- Ressource: "200kg Äpfel verfügbar"
-- → Matching: "Niedermörig hat 200kg, Timo braucht 50kg"
+```
+Kategorie: Lebensmittel
+Ware: Äpfel
+Menge: 50
+Einheit: kg
+```
 
-**Optionen:**
-1. **Freitext:** "50kg" (einfach, unstrukturiert)
-2. **Strukturiert:** Zahl + Einheit (15, "kg") (komplex, präzise)
-3. **Optional:** Erst Freitext, später strukturiert
-
-**Empfehlung:** Freitext im MVP, strukturiert in v2
+**Vorteil:**
+- Einheitlich
+- Statistiken möglich
+- Schnelle Eingabe (Dropdowns)
+- Erweiterbar (Community kann Waren hinzufügen)
 
 ---
 
 ### 14.7 Bewertungen / Feedback?
 
-**Frage:** Soll es Bewertungen geben?
+**Entscheidung getroffen:** KEINE Bewertungen!
 
-**Beispiel:**
-- Timo leiht Motorsäge von Ida
-- Nach Rückgabe: "War alles ok?" (Feedback)
+**Begründung:**
+- Widerspricht Philosophie ("Teilen ohne Schuld")
+- Druck und Bewertungs-Angst
+- Potentielle Würde-Verletzung
+- Vertrauen wird über Web of Trust geregelt (nicht über Sterne)
 
-**Pro:**
-- Qualitätskontrolle (wer gibt Werkzeuge gut zurück?)
-- Vertrauen stärken
-
-**Contra:**
-- Druck (Bewertungs-Angst)
-- Würde-Verletzung (schlechte Bewertung = Ausschluss?)
-- Widerspricht "Teilen ohne Schuld"
-
-**Empfehlung:** KEINE Bewertungen (passt nicht zur Philosophie)
-Alternative: "Danke sagen" (positiv, freiwillig, kein Druck)
+**Alternative:**
+- "Danke sagen" (positiv, freiwillig, kein Druck)
+- Token-Scheine als Wertschätzung
+- Web of Trust: Wer sich nicht gut verhält → Vertrauensebene sinkt (organisch)
 
 ---
 
@@ -1466,23 +1578,28 @@ Alternative: "Danke sagen" (positiv, freiwillig, kein Druck)
 - [ ] Einfache Sichtbarkeits-Regeln (Gemeinschaft, vertrauenswürdig, öffentlich)
 
 **Post-MVP (v1.5 - v2):**
-- [ ] Fofi-Scan Integration
-- [ ] Karten-Ansicht
+- [ ] Token-Schein-Scan Integration (QR-Code automatisch)
+- [ ] Marktplatz-Raum Automatisierung (Waren-Scan, Korb-Scan)
 - [ ] Kalender-Integration (Ressourcen-Verfügbarkeit)
-- [ ] Mikro-Kartierung
-- [ ] AI-basiertes Matching
+- [ ] Mikro-Kartierung (detaillierte Gemeinschafts-Karten)
+- [ ] AI-basiertes Matching (Begabungen ↔ Bedürfnisse)
 - [ ] Quest-Integration (Ressourcen-Erzeugung)
 
 ---
 
 ### 15.2 Offene Fragen für Anton & Timo
 
-1. **Fofi-QR-Code:** Wie genau funktioniert die Verschlüsselung? (Anton)
+**Entschieden:**
+- ✅ **Karte im MVP:** JA!
+- ✅ **Mengenangaben:** Strukturiert mit Kategorien-Datenbank
+- ✅ **Bewertungen:** NEIN (passt nicht zur Philosophie)
+- ✅ **Kalender-Integration:** Post-MVP (v1.5/v2)
+
+**Noch offen:**
+1. **Token-Schein-QR-Code:** Wie genau funktioniert die Verschlüsselung? (Anton)
 2. **Gemeinschafts-Vertrauen:** Wer legt Ebenen fest? Admin, Demokratie, Hybrid? (Timo + Anton)
-3. **MVP-Scope:** Karte im MVP oder später? (Timo)
-4. **Mengenangaben:** Freitext oder strukturiert? (Timo)
-5. **Bewertungen:** Ja oder Nein? (Timo - meine Empfehlung: NEIN)
-6. **Kalender-Integration:** Wann? MVP, v1.5, v2? (Timo)
+3. **Marktplatz-Raum:** Automatischer Korb-Scan oder manuell? (Hardware-Frage)
+4. **Token-Transfer:** Blockchain, zentrale DB, oder dezentral? (Anton)
 
 ---
 
