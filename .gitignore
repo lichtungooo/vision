@@ -1,0 +1,8 @@
+# Privater Tagebuch-Ordner (nur lokal, nicht öffentlich)
+tagebuch/
+
+# Ideen-Ordner (auch privat)
+ideen/
+
+# Sonstige private Dateien
+*.private.md
