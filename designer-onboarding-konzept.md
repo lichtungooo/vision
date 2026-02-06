@@ -1,441 +1,385 @@
-# Designer Contest - Komplettes Konzept
+# Designer Onboarding - Konzept
 
-*Money-Printer Template Design Wettbewerb*
+*Money-Printer Template Design System*
 
-**Version:** 1.0
+**Version:** 2.0
 **Datum:** 5. Februar 2026
-**Status:** Konzeptphase
+**Status:** Strategiephase - Two-Phase Approach
 
 ---
 
 ## Executive Summary
 
-**Vision:** Wir laden 10 talentierte Designer ein, außergewöhnliche Money-Printer Templates zu erstellen. Die Designer erhalten ein professionelles Onboarding, ein intuitives Design-Studio und ein eigenes Dashboard zur Verwaltung ihrer Submissions.
+**Vision:** Wir bauen ein kontinuierliches Designer-Onboarding-System, das talentierten Designern ermöglicht, hochwertige Template-Designs für Money-Printer zu erstellen.
 
-**Ziel:**
-- 10-20 hochwertige, diverse Templates für verschiedene Use-Cases
-- Aufbau einer Designer-Community
-- Templates für Launch (März 2026) bereit
+**Kernprinzip:** Designer liefern **nur Design-Assets** (Backgrounds, Frames, Badges, Farbpaletten, Fonts) - KEINE kompletten Template-JSONs. Designer und Kunde nutzen **dasselbe LayoutEditor-Tool**.
+
+**Two-Phase Approach:**
+- **Phase 1 (1-2 Wochen):** Template-System - Designer erstellt Beispiel-Layout, Kunde kann übernehmen oder anpassen
+- **Phase 2 (4-6 Wochen nach Launch):** Full Canvas Editor mit AI-Unterstützung für harmonische Integration, Smart Positioning, Prompt-based Adjustments
 
 **Strategie:**
-- Exklusive Einladung (nicht öffentlicher Contest)
-- Professionelles Tooling (Designer-Dashboard + Studio)
-- Faire Konditionen (Credit, Portfolio-Link, optional Revenue-Share)
+- Kontinuierliches Onboarding (nicht limitiert auf 10 Designer)
+- Professionelles Tooling (Designer-Dashboard + Shared LayoutEditor)
+- Gallery mit Ranking (Social Proof durch meistgedruckte Templates)
+- Faire Konditionen (Credit, Portfolio-Link, optional Revenue-Share später)
 
 ---
 
 ## Inhaltsverzeichnis
 
-1. [Kategorien & Zielgruppen](#kategorien--zielgruppen)
-2. [Template-Anforderungen](#template-anforderungen)
-3. [Designer Journey](#designer-journey)
-4. [Technische Architektur](#technische-architektur)
-5. [Designer-Dashboard](#designer-dashboard)
-6. [Design-Studio (Konfigurator)](#design-studio-konfigurator)
-7. [Integration in Money-Printing App](#integration-in-money-printing-app)
-8. [Datenmodell](#datenmodell)
-9. [Admin-View (für dich)](#admin-view-für-dich)
-10. [Timeline & Roadmap](#timeline--roadmap)
+1. [Core Concepts](#core-concepts)
+2. [Use-Cases & Design-Kategorien](#use-cases--design-kategorien)
+3. [Two-Phase Development Approach](#two-phase-development-approach)
+4. [Designer Journey](#designer-journey)
+5. [Technische Architektur](#technische-architektur)
+6. [Designer-Dashboard](#designer-dashboard)
+7. [Shared LayoutEditor Component](#shared-layouteditor-component)
+8. [Gallery & Ranking System](#gallery--ranking-system)
+9. [Integration in Money-Printing App](#integration-in-money-printing-app)
+10. [Datenmodell](#datenmodell)
+11. [Admin-View](#admin-view-für-timo)
+12. [Timeline & Roadmap](#timeline--roadmap)
 
 ---
 
-## Kategorien & Zielgruppen
+## Core Concepts
 
-### Die Kategorien - Was macht Sinn?
+### 1. Designer liefert nur Design-Assets
 
-Basierend auf den Personas aus dem Kommunikationskonzept und den größten Verkaufspotenzialen:
+**WAS Designer macht:**
+- Background-Design erstellen
+- Front/Back Frames designen (optional)
+- Value-Badges gestalten (1h, 5h, 10h oder äquivalent)
+- Farbpalette definieren (Primary, Secondary, Text)
+- Fonts auswählen
 
-#### **1. Classic Time Vouchers** (Primär)
-**Use-Case:** "Der Netzwerker" - Persönliche Zeitgutscheine
-**Wert-Typen:** 1h, 5h, 10h, Custom
-**Zielgruppe:** Selbstständige, Kreative, Freiberufler
-**Verkaufspotenzial:** ★★★★★ (Kernprodukt)
+**WAS Designer NICHT macht:**
+- Keine kompletten Template-JSONs schreiben
+- Keine Field-Definitionen
+- Keine technische Schema-Definition
 
-**Design-Anforderungen:**
-- Professionell, wertig, banknotenähnlich
-- Platz für Portrait (Oval/Kreis)
-- Seriöser Look, nicht zu verspielt
-
----
-
-#### **2. Handwerk & Trade Cards** (Sekundär)
-**Use-Case:** Handwerker, lokale Dienstleister
-**Wert-Typen:** "1 Stunde Arbeit", "Reparatur", "Beratung"
-**Zielgruppe:** Schreiner, Elektriker, Mechaniker, etc.
-**Verkaufspotenzial:** ★★★★☆ (Großes Potenzial, wenig Konkurrenz)
-
-**Design-Anforderungen:**
-- Robust, handwerklich, "Made with hands"
-- Werkzeug-Symbolik (dezent)
-- Vertrauenswürdig, bodenständig
+**Template-Struktur wird vom System bereitgestellt** - Designer "skinnt" diese nur mit eigenen Assets.
 
 ---
 
-#### **3. Business Vouchers** (Primär)
-**Use-Case:** B2B-Networking, Corporate Gifting
-**Wert-Typen:** "1 Beratungsstunde", "Workshop", "Mentoring"
-**Zielgruppe:** Coaches, Berater, Agenturen
-**Verkaufspotenzial:** ★★★★★ (Hohes Budget, Bulk-Orders)
+### 2. Shared LayoutEditor Component
 
-**Design-Anforderungen:**
-- Clean, minimalistisch, premium
-- Platz für Logo (optional)
-- International verwendbar (weniger kulturspezifisch)
+**Designer und Kunde nutzen DASSELBE Tool:**
 
----
-
-#### **4. Event Tickets** (Tertiär)
-**Use-Case:** Workshops, Community-Events, private Feiern
-**Wert-Typen:** "Eintritt", "VIP-Zugang", "2 Personen"
-**Zielgruppe:** Veranstalter, Community-Builder
-**Verkaufspotenzial:** ★★★☆☆ (Nische, aber interessant)
-
-**Design-Anforderungen:**
-- Festlich, einladend, event-typisch
-- Platz für Event-Info (Datum, Ort optional)
-- QR-Code prominent
-
----
-
-#### **5. Gift & Thank-You Cards** (Sekundär)
-**Use-Case:** "Die Dankbare" - Wertschätzung ausdrücken
-**Wert-Typen:** "Ein Dankeschön", "Für deine Hilfe", Custom
-**Zielgruppe:** Alle Altersgruppen, emotionaler Use-Case
-**Verkaufspotenzial:** ★★★★☆ (Emotionaler Mehrwert = höhere Zahlungsbereitschaft)
-
-**Design-Anforderungen:**
-- Warm, persönlich, nicht zu kitschig
-- Platz für persönliche Nachricht
-- Verschiedene Stile (elegant, verspielt, minimalistisch)
-
----
-
-#### **6. Community Currencies** (Tertiär)
-**Use-Case:** Tauschringe, Nachbarschafts-Netzwerke
-**Wert-Typen:** "1 Stunde", "Punktewährung", Custom
-**Zielgruppe:** "Die Tauschring-Aktive"
-**Verkaufspotenzial:** ★★★☆☆ (Klein aber leidenschaftlich)
-
-**Design-Anforderungen:**
-- Gemeinschaftlich, lokal, identitätsstiftend
-- Platz für Community-Logo/Name
-- Kann bunter/spielerischer sein
-
----
-
-### Priorisierung für den Contest
-
-**MUST-HAVE (Mindestens je 2 Templates):**
-1. Classic Time Vouchers
-2. Business Vouchers
-3. Gift & Thank-You Cards
-
-**NICE-TO-HAVE (je 1-2 Templates):**
-4. Handwerk & Trade Cards
-5. Event Tickets
-
-**EXPERIMENTAL (optional):**
-6. Community Currencies
-
-**Total:** 10 Designer × 1-2 Templates = 10-20 Templates
-
----
-
-## Template-Anforderungen
-
-### Was muss ein Template haben?
-
-Basierend auf der bestehenden Template-Spezifikation:
-
-#### **1. Pflicht-Elemente**
-
-**Visuelle Assets:**
-- ✅ **Background** (Hintergrund-Design, WebP/PNG, 3633x1920px @ 600 DPI)
-- ✅ **Front Frame** (optional, aber empfohlen)
-- ✅ **Back Frame** (optional, aber empfohlen)
-- ✅ **Badge-System** (Wert-Badges: 1h, 5h, 10h oder äquivalent)
-
-**Technische Bereiche (Template-Schema):**
-- ✅ **Portrait-Bereich** (Position, Form: Oval/Kreis/Rechteck)
-- ✅ **Wert-Feld** (Position für Stundenzahl/Wert-Text)
-- ✅ **Text-Felder** (Name, Kontaktdaten, Versprechen)
-- ✅ **Seriennummer** (Position, Style)
-- ✅ **QR-Code** (Position, Größe)
-
-**Sicherheitsmerkmale (für Designer zu definieren):**
-- ✅ **Silber-Folien-Bereich** (wo wird Silber aufgeklebt?)
-- ✅ **Hologramm-Bereich** (optional, für Premium-Designs)
-- ✅ **Micro-Text** (optional, aber cool für Authentizität)
-- ✅ **Wasserzeichen-Bereich** (optional)
-
----
-
-#### **2. Template-JSON-Struktur**
-
-Designer definiert in `template.json`:
-
-```json
-{
-  "id": "handcraft-voucher",
-  "version": "1.0.0",
-  "name": "Handcraft Voucher",
-  "type": "time-voucher",
-  "category": "handwerk",
-
-  "designer": {
-    "name": "Designer Name",
-    "url": "https://portfolio.com",
-    "email": "designer@email.com"
-  },
-
-  "assets": {
-    "background": "/templates/handcraft/background.webp",
-    "frontFrame": "/templates/handcraft/front_frame.webp",
-    "backFrame": "/templates/handcraft/back_frame.webp",
-    "badges": {
-      "type": "image",
-      "variants": [
-        { "value": 1, "image": "/templates/handcraft/badge_1h.png" },
-        { "value": 5, "image": "/templates/handcraft/badge_5h.png" },
-        { "value": 10, "image": "/templates/handcraft/badge_10h.png" }
-      ]
-    }
-  },
-
-  "schema": {
-    "fields": [
-      {
-        "id": "portrait",
-        "type": "image",
-        "label": "Dein Portrait",
-        "required": true,
-        "config": {
-          "shape": "ellipse",
-          "features": {
-            "zoom": true,
-            "pan": true,
-            "engraving": true,
-            "backgroundRemoval": true
-          }
-        }
-      },
-      {
-        "id": "hours",
-        "type": "select",
-        "label": "Stunden",
-        "required": true,
-        "config": {
-          "options": [
-            { "value": 1, "label": "1 Stunde" },
-            { "value": 5, "label": "5 Stunden" },
-            { "value": 10, "label": "10 Stunden" }
-          ]
-        }
-      },
-      {
-        "id": "name",
-        "type": "text",
-        "label": "Dein Name",
-        "required": true,
-        "validation": { "maxLength": 50 }
-      }
-      // ... weitere Felder
-    ]
-  },
-
-  "layout": {
-    "dimensions": {
-      "width": 3633,
-      "height": 1920,
-      "dpi": 600
-    },
-    "front": {
-      "layers": [
-        { "type": "background", "source": "background" },
-        { "type": "frame", "source": "frontFrame" },
-        { "type": "field", "fieldId": "portrait", "position": { "x": 500, "y": 500 }, "clip": "ellipse" },
-        { "type": "badges", "fieldId": "hours", "positions": [{ "x": 2800, "y": 960 }] },
-        { "type": "field", "fieldId": "name", "position": { "x": 1816, "y": 1400 }, "style": { "fontSize": 48, "fontFamily": "serif", "color": "#2a3a2a" } }
-        // ... weitere Layer
-      ]
-    },
-    "back": {
-      "layers": [
-        // Rückseiten-Layout
-      ]
-    }
-  },
-
-  "security": {
-    "silverFoilArea": {
-      "front": [
-        { "type": "rectangle", "x": 100, "y": 100, "width": 200, "height": 100 }
-      ],
-      "back": []
-    },
-    "hologramArea": null,
-    "serialNumberPosition": { "side": "back", "x": 3400, "y": 1800 }
-  }
+```typescript
+interface LayoutEditorProps {
+  mode: 'designer' | 'customer';     // Same component!
+  templateSkin: TemplateSkin;        // The design assets
+  initialLayout?: Layout;            // For customer = designer's example
+  availableElements: ElementType[];
+  onSave: (layout: Layout) => void;
 }
 ```
 
----
-
-#### **3. Usability-Anforderungen**
-
-**Für den Endnutzer (der den Schein bestellt):**
-- ✅ Alle Felder klar erkennbar und lesbar
-- ✅ Portrait prominent platziert
-- ✅ Wert (Stunden) sofort erkennbar
-- ✅ Nicht überladen (max. 5-7 Informationscluster)
-- ✅ QR-Code gut scannbar (mind. 200x200px)
-
-**Für den Drucker (Print-Ready):**
-- ✅ 3mm Bleed enthalten
-- ✅ Schnittmarken definiert
-- ✅ Silber-Folien-Bereiche klar markiert
-- ✅ Hochauflösend (600 DPI)
-
-**Für den Designer (Workflow):**
-- ✅ Einfach zu konfigurieren
-- ✅ Template-JSON gut strukturiert
-- ✅ Assets optimiert (<2MB gesamt)
+**Workflow:**
+1. Designer lädt Assets hoch (Background, Frames, Badges)
+2. Designer nutzt LayoutEditor um **Beispiel-Layout** zu erstellen
+3. Beispiel-Layout wird gespeichert und dem Kunden als Vorschlag gezeigt
+4. Kunde öffnet **denselben LayoutEditor** mit dem Beispiel-Layout
+5. Kunde kann:
+   - Beispiel-Layout übernehmen (1-Click)
+   - Elemente verschieben, anpassen, ändern
+   - Eigenes Layout speichern und wiederverwenden
 
 ---
 
-### Technische Specs (für Designer-Briefing)
+### 3. Two-Phase Development
 
-**Canvas-Größe:**
-- 3633 × 1920 Pixel (600 DPI)
-- Physisch: 138.6mm × 72.9mm (Scheckkartenformat + Bleed)
+**Phase 1: Template System (MVP - 1-2 Wochen)**
+- Designer lädt Assets hoch
+- Designer erstellt Beispiel-Layout mit einfachem Editor
+- Kunde kann Layout übernehmen oder manuell anpassen
+- Speichern & Wiederverwenden von eigenen Layouts
+- Gallery mit Ranking
 
-**Farbraum:**
-- RGB für Digital-Preview
-- CMYK-Fähig (für Druck)
-- Silver-Foil-Ready (Bereiche müssen definiert werden)
+**Phase 2: Full Canvas Editor mit AI (4-6 Wochen nach Launch)**
+- Vollständig freies Drag & Drop
+- AI-gestützte Features:
+  - Smart Positioning (harmonische Platzierung)
+  - Layout-Check (Lesbarkeit, Balance)
+  - Hue-Shift für Farbvarianten
+  - Prompt-based Adjustments ("Mach das etwas größer")
+- Advanced Layer-Management
+- Templates als Starting Point, dann volle Freiheit
 
-**Dateiformate:**
-- Background/Frames: WebP oder PNG
-- Badges: PNG mit Transparenz
-- Fonts: WOFF2/WOFF/TTF (müssen inkludiert werden, falls custom)
+---
 
-**Performance:**
-- Gesamtgröße aller Assets: <5MB
-- Background: <2MB
-- Frames: <1MB jeweils
-- Badges: <500KB gesamt
+## Use-Cases & Design-Kategorien
+
+### Die 4 Core Use-Cases
+
+Diese sind **funktionale Kategorien** - was der Kunde tut:
+
+#### **1. VISIT (Visitenkarte)**
+**Zweck:** Persönliche Visitenkarte mit Stundenwert
+**Wert-Typen:** 1h, 5h, 10h, Custom
+**Zielgruppe:** Selbstständige, Kreative, Freiberufler
+**Elemente:** Portrait, Name, Kontaktdaten, Stundenwert, QR-Code
+
+---
+
+#### **2. GIFT (Geschenk)**
+**Zweck:** Wertschätzung ausdrücken, Dankeschön
+**Wert-Typen:** "Ein Dankeschön", "Für deine Hilfe", Custom Text
+**Zielgruppe:** Alle Altersgruppen, emotionaler Use-Case
+**Elemente:** Portrait, persönliche Nachricht, Wert/Text
+
+---
+
+#### **3. VALUE (Eigene Währung)** ⭐ **GAME CHANGER**
+**Zweck:** Eigene Währung drucken - subsumiert viele Use-Cases
+**Wert-Typen:** Stunden, Punkte, Custom Units, Community-Currency
+**Zielgruppen:**
+- Tauschringe
+- Community-Netzwerke
+- Event-Organizer (Getränkemarken)
+- Bildungseinrichtungen (Leistungspunkte)
+- Lokale Geschäfte (Loyalty Points)
+
+**Warum Game Changer:**
+- Unendlich viele Anwendungsfälle
+- Identitätsstiftend für Communities
+- Hoher emotionaler Mehrwert
+- Skalierbar (kleine Communities bis große Organisationen)
+
+---
+
+#### **4. INVITE (Einladung/Ticket)**
+**Zweck:** Event-Tickets, Einladungen, Zugangsberechtigungen
+**Wert-Typen:** "Eintritt", "VIP-Zugang", "2 Personen", Custom
+**Zielgruppe:** Veranstalter, Community-Builder, Privatpersonen
+**Elemente:** Event-Info, QR-Code prominent, Optional: Portrait
+
+---
+
+### Die 8 Design-Kategorien
+
+Diese sind **ästhetische Stile** - wie das Design aussieht. Ein Design kann für MEHRERE Use-Cases genutzt werden.
+
+| Design-Kategorie | Beschreibung | Typische Merkmale |
+|-----------------|--------------|-------------------|
+| **Business/Professional** | Clean, minimalistisch, premium | Serif-Schriften, dezente Farben, klare Linien |
+| **Spiritual/Conscious** | Bewusst, achtsam, naturverbunden | Erdtöne, organische Formen, ruhige Typografie |
+| **Handcraft/Maker** | Handwerklich, robust, authentisch | Werkzeug-Symbolik, texturiert, bodenständig |
+| **Wellness/Beauty** | Entspannt, elegant, pflegend | Sanfte Farben, fließende Formen, feminine Touch |
+| **Creative/Artist** | Kreativ, künstlerisch, expressiv | Bunte Farben, experimentell, einzigartig |
+| **Community/Local** | Gemeinschaftlich, lokal, identitätsstiftend | Community-Logos, regional, verbindend |
+| **Vintage/Heritage** | Nostalgisch, klassisch, zeitlos | Vintage-Elemente, klassische Typografie |
+| **Modern/Minimal** | Zeitgemäß, clean, reduziert | Sans-Serif, viel Weißraum, geometrisch |
+
+**Beispiel:**
+- Ein "Vintage/Heritage" Design kann für VISIT (Visitenkarte) UND GIFT (Geschenk) genutzt werden
+- Ein "Business/Professional" Design passt zu VISIT UND VALUE (Firmenwährung)
+
+---
+
+## Two-Phase Development Approach
+
+### Phase 1: Template System (MVP)
+
+**Zeitrahmen:** 1-2 Wochen (mit AI-assisted Development durch Anton)
+
+**Features:**
+- Designer-Onboarding & Dashboard
+- Asset-Upload (Background, Frames, Badges)
+- Einfacher LayoutEditor (Positionierung von Elementen)
+- Designer erstellt Beispiel-Layout
+- Kunde übernimmt Layout oder passt an
+- Speichern & Wiederverwenden von Custom Layouts
+- Gallery mit Ranking (meistgedruckte Templates)
+
+**Einschränkungen:**
+- Begrenzte Drag & Drop Funktionalität
+- Vorgegebene Element-Typen
+- Manuelle Positionierung (Grid-basiert oder Snap-to-Grid)
+
+**Datenmodell:**
+```typescript
+interface TemplateSkin {
+  background: string;          // URL to background asset
+  frontFrame?: string;
+  backFrame?: string;
+  badges?: {
+    type: 'image' | 'text';
+    variants: Array<{ value: number | string; image?: string }>;
+  };
+  colorPalette: {
+    primary: string;
+    secondary: string;
+    text: string;
+  };
+  fonts: {
+    heading: string;
+    body: string;
+  };
+}
+
+interface Layout {
+  front: LayoutSide;
+  back: LayoutSide;
+}
+
+interface LayoutSide {
+  layers: Layer[];  // Ordered from bottom to top
+}
+
+type Layer = BackgroundLayer | FrameLayer | ElementLayer | SecurityLayer;
+
+interface ElementLayer {
+  type: 'element';
+  elementType: 'portrait' | 'name' | 'email' | 'value' | 'qrCode' | 'customImage' | ...;
+  position: { x: number; y: number };
+  size: { width: number; height: number };
+  config?: ElementConfig;
+  style?: TextStyle;
+}
+```
+
+**User Stories:**
+1. Als Designer kann ich Assets hochladen und ein Beispiel-Layout erstellen
+2. Als Kunde kann ich ein Designer-Template wählen und das Beispiel-Layout übernehmen
+3. Als Kunde kann ich Elemente im Layout verschieben und anpassen
+4. Als Kunde kann ich mein Custom-Layout speichern und wiederverwenden
+5. Als Kunde sehe ich die meistgedruckten Templates in der Gallery
+
+---
+
+### Phase 2: Full Canvas Editor mit AI (Post-Launch)
+
+**Zeitrahmen:** 4-6 Wochen nach Launch
+
+**Additional Features:**
+- Vollständig freies Drag & Drop (react-dnd oder react-rnd)
+- Layer-Management (Z-Index, Gruppierung)
+- AI-gestützte Features:
+  - **Smart Positioning:** AI schlägt harmonische Positionen vor
+  - **Layout-Check:** Lesbarkeit, Balance, Überlappungen
+  - **Hue-Shift:** Automatische Farbvarianten
+  - **Prompt-based Adjustments:** "Mach den Namen größer", "Verschiebe Portrait nach rechts"
+- Advanced Styling (Schatten, Effekte, Transparenz)
+- Template als Starting Point, dann volle Customization
+
+**AI Integration Beispiele:**
+```typescript
+// Smart Positioning
+interface SmartPositioningSuggestion {
+  element: ElementType;
+  suggestedPosition: { x: number; y: number };
+  reason: string; // "Harmoniert mit Portrait", "Bessere Balance"
+}
+
+// Layout Check
+interface LayoutCheckResult {
+  issues: Array<{
+    type: 'overlap' | 'readability' | 'balance' | 'proximity';
+    severity: 'error' | 'warning' | 'info';
+    message: string;
+    suggestion?: string;
+  }>;
+}
+
+// Prompt-based Adjustment
+async function adjustLayout(prompt: string, currentLayout: Layout): Promise<Layout> {
+  // AI interpretiert Prompt und gibt neues Layout zurück
+  // "Mach das größer" → AI erkennt "das" = selected element, vergrößert es
+}
+```
+
+**Warum Phase 2 später:**
+- Phase 1 ist schneller umsetzbar (1-2 Wochen vs. 4-6 Wochen)
+- Ermöglicht frühen Launch und Feedback
+- AI-Features brauchen mehr Testing und Refinement
+- Kunden können mit Phase 1 schon produktiv arbeiten
 
 ---
 
 ## Designer Journey
 
-### Die komplette User Journey eines Designers
+### Komplette User Journey
 
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                         DESIGNER JOURNEY                            │
 ├─────────────────────────────────────────────────────────────────────┤
 │                                                                     │
-│  1. EINLADUNG                                                       │
+│  1. ENTDECKUNG & INTERESSE                                          │
 │     ┌───────────────────────────────────────────────────────────┐  │
-│     │ • Designer erhält persönliche E-Mail-Einladung           │  │
-│     │ • Link zur Landingpage: contest.moneyprinter.app         │  │
-│     │ • Unique Invite-Code im Link                             │  │
+│     │ • Designer hört von Money-Printer                        │  │
+│     │ • Besucht Website, sieht Gallery                         │  │
+│     │ • Interesse geweckt: "Ich will auch designen!"          │  │
 │     └───────────────────────────────────────────────────────────┘  │
 │                              │                                      │
 │                              ▼                                      │
-│  2. LANDINGPAGE & ONBOARDING                                        │
+│  2. ANMELDUNG & ONBOARDING                                          │
 │     ┌───────────────────────────────────────────────────────────┐  │
-│     │ • Hero: "Du bist eingeladen zum Designer Contest"        │  │
-│     │ • Intro-Video (2 Min): Was ist Money-Printer?            │  │
-│     │ • Beispiele: Bestehende Templates (Classic)              │  │
-│     │ • CTA: "Jetzt teilnehmen" → Account erstellen            │  │
-│     └───────────────────────────────────────────────────────────┘  │
-│                              │                                      │
-│                              ▼                                      │
-│  3. ACCOUNT-ERSTELLUNG                                              │
-│     ┌───────────────────────────────────────────────────────────┐  │
+│     │ • Designer erstellt Account                              │  │
 │     │ • E-Mail + Passwort (oder Google/GitHub OAuth)           │  │
 │     │ • Profil: Name, Portfolio-URL, Bio                       │  │
-│     │ • Skills: Design-Tools (Figma, Illustrator, Photoshop)  │  │
-│     │ • Portfolio-Upload (optional, 3-5 Arbeitsproben)        │  │
-│     │ • Kategorie-Wahl: Welche Kategorie interessiert dich?   │  │
+│     │ • Skills: Design-Tools (Figma, Illustrator, etc.)       │  │
 │     └───────────────────────────────────────────────────────────┘  │
 │                              │                                      │
 │                              ▼                                      │
-│  4. DESIGNER-DASHBOARD                                              │
+│  3. DESIGNER-DASHBOARD                                              │
 │     ┌───────────────────────────────────────────────────────────┐  │
-│     │ • Willkommen-Screen mit Tutorial                         │  │
+│     │ • Willkommens-Tutorial (Video/interaktiv)                │  │
 │     │ • "Deine Templates" (leer am Anfang)                     │  │
-│     │ • CTA: "Neues Template erstellen"                        │  │
-│     │ • Sidebar: Ressourcen, Briefing, FAQ, Support           │  │
+│     │ • CTA: "Erstes Template erstellen"                       │  │
+│     │ • Sidebar: Briefing, Specs, FAQ, Community               │  │
 │     └───────────────────────────────────────────────────────────┘  │
 │                              │                                      │
 │                              ▼                                      │
-│  5. TEMPLATE-ERSTELLUNG (Design Studio)                            │
+│  4. TEMPLATE-ERSTELLUNG                                             │
 │     ┌───────────────────────────────────────────────────────────┐  │
-│     │ STEP 1: Kategorie & Basics                               │  │
-│     │   • Kategorie wählen (Time/Business/Event/etc.)         │  │
-│     │   • Template-Name eingeben                               │  │
-│     │   • Kurzbeschreibung                                     │  │
+│     │ STEP 1: Design-Kategorie & Use-Cases wählen             │  │
+│     │   • Kategorie: z.B. "Vintage/Heritage"                   │  │
+│     │   • Use-Cases: VISIT + GIFT (mehrere möglich)           │  │
+│     │   • Template-Name & Beschreibung                         │  │
 │     │                                                           │  │
 │     │ STEP 2: Assets hochladen                                 │  │
 │     │   • Background (Drag & Drop, Max 2MB)                   │  │
-│     │   • Front Frame (optional)                               │  │
-│     │   • Back Frame (optional)                                │  │
-│     │   • Badges (1h, 5h, 10h - je ein PNG)                   │  │
-│     │   • Preview: Live-Vorschau beim Upload                  │  │
+│     │   • Front/Back Frame (optional)                          │  │
+│     │   • Value-Badges (1h, 5h, 10h oder Custom)              │  │
+│     │   • Live-Preview beim Upload                             │  │
 │     │                                                           │  │
-│     │ STEP 3: Bereiche definieren (Drag & Drop Editor)        │  │
-│     │   • Portrait-Bereich: Ziehen, Größe anpassen, Form wählen│  │
-│     │   • Wert-Badge: Position definieren                     │  │
-│     │   • Text-Felder: Name, Email, Phone, Description        │  │
-│     │   • Seriennummer: Position & Style                      │  │
-│     │   • QR-Code: Position & Größe                           │  │
-│     │   • Sicherheitsmerkmale:                                │  │
-│     │     - Silber-Folien-Bereich markieren                   │  │
-│     │     - Hologramm-Position (optional)                     │  │
+│     │ STEP 3: Farbpalette & Fonts                              │  │
+│     │   • Primary, Secondary, Text Colors                      │  │
+│     │   • Heading & Body Font auswählen                        │  │
 │     │                                                           │  │
-│     │ STEP 4: Styling & Feintuning                            │  │
-│     │   • Text-Styles: Font, Size, Color                      │  │
-│     │   • Hue-Shift-Option (Farbvarianten)?                   │  │
-│     │   • Portrait-Optionen: Engraving? BG-Removal?           │  │
+│     │ STEP 4: Beispiel-Layout erstellen                        │  │
+│     │   • Nutzt SHARED LayoutEditor                            │  │
+│     │   • Platziert Portrait, Name, Kontakte, QR-Code, etc.   │  │
+│     │   • Front & Back designen                                 │  │
+│     │   • Live-Preview während des Designs                     │  │
 │     │                                                           │  │
 │     │ STEP 5: Preview & Test                                   │  │
-│     │   • Live-Preview mit Test-Daten                         │  │
-│     │   • Front & Back ansehen                                 │  │
 │     │   • Test-PDF generieren                                  │  │
-│     │   • Mobile-Preview (wie sieht es auf Phone aus?)        │  │
+│     │   • Mobile-Preview                                        │  │
+│     │   • Validierung (Assets komplett, Layout ok?)           │  │
 │     └───────────────────────────────────────────────────────────┘  │
 │                              │                                      │
 │                              ▼                                      │
-│  6. SUBMISSION                                                      │
+│  5. SUBMISSION & REVIEW                                             │
 │     ┌───────────────────────────────────────────────────────────┐  │
-│     │ • Finale Checkliste:                                     │  │
-│     │   ✓ Alle Assets hochgeladen?                            │  │
-│     │   ✓ Bereiche definiert?                                 │  │
-│     │   ✓ Test-PDF sieht gut aus?                             │  │
-│     │ • Button: "Template einreichen"                         │  │
+│     │ • Template einreichen                                    │  │
 │     │ • Status: "Submitted" → Wartet auf Review               │  │
+│     │ • Admin (Timo) reviewt Template                          │  │
+│     │ • Feedback: Approve / Changes Requested / Reject         │  │
 │     └───────────────────────────────────────────────────────────┘  │
 │                              │                                      │
 │                              ▼                                      │
-│  7. REVIEW-PROZESS                                                  │
+│  6. PUBLISHED & TRACKING                                            │
 │     ┌───────────────────────────────────────────────────────────┐  │
-│     │ • Designer sieht Status im Dashboard:                   │  │
-│     │   "In Review" (Timo schaut es an)                       │  │
-│     │ • Notification wenn Feedback kommt:                     │  │
-│     │   "Changes Requested" → Designer bekommt Kommentare     │  │
-│     │   "Approved" → Template ist freigegeben                 │  │
-│     └───────────────────────────────────────────────────────────┘  │
-│                              │                                      │
-│                              ▼                                      │
-│  8. APPROVED & PUBLISHED                                            │
-│     ┌───────────────────────────────────────────────────────────┐  │
-│     │ • Template ist jetzt live im Shop                       │  │
-│     │ • Designer erhält Bestätigung + Portfolio-Link          │  │
-│     │ • Dashboard zeigt: "Published" Status                   │  │
-│     │ • Optional: Revenue-Share-Tracking (später)             │  │
+│     │ • Template ist live im Shop & Gallery                   │  │
+│     │ • Designer sieht Stats:                                  │  │
+│     │   - Anzahl Bestellungen                                  │  │
+│     │   - Ranking in Gallery                                    │  │
+│     │   - Optional: Revenue-Share (später)                     │  │
 │     └───────────────────────────────────────────────────────────┘  │
 │                                                                     │
 └─────────────────────────────────────────────────────────────────────┘
@@ -445,685 +389,41 @@ Designer definiert in `template.json`:
 
 ## Technische Architektur
 
-### Wo lebt das System?
+### System-Übersicht
 
-**Integration in bestehende Money-Printing App:**
-- **NICHT** separate Landingpage
-- **Integriert** in die Money-Printing App (`money-printer-shop`)
-- **Neue Routen:**
-  - `/designer` - Designer-Portal Einstieg
-  - `/designer/onboarding` - Onboarding-Flow
-  - `/designer/dashboard` - Dashboard
-  - `/designer/studio` - Design Studio (Template-Editor)
-  - `/designer/templates/:id` - Template bearbeiten
-
----
+**Integration in Money-Printing App:**
+- Neue Routen in `money-printer-shop` (Next.js)
+- `/designer/*` für Designer-Portal
+- Shared Components zwischen Shop und Designer-Portal
+- Supabase Backend (PostgreSQL + Auth + Storage)
 
 ### Tech-Stack
 
 **Frontend:**
-- Next.js (bereits verwendet in `money-printer-shop`)
-- React (bereits vorhanden)
-- TypeScript
-- Tailwind CSS (bereits vorhanden)
+- Next.js (bereits vorhanden)
+- React + TypeScript
+- Tailwind CSS
+- react-dnd oder react-rnd (für Drag & Drop in Phase 2)
 
 **Backend:**
-- Next.js API Routes (Serverless Functions)
-- Oder: Separate Node.js Backend (falls mehr Kontrolle gewünscht)
+- Supabase:
+  - PostgreSQL für Daten
+  - Auth für Designer-Accounts
+  - Storage für Assets
+  - Row-Level Security (RLS) für Permissions
 
-**Datenbank:**
-- **Supabase** (empfohlen)
-  - PostgreSQL-basiert
-  - Auth built-in (Email/Password, OAuth)
-  - Storage für Assets (Bilder, PDFs)
-  - Real-time subscriptions
-  - Row-Level Security
-- Alternative: **Firebase** (aber Supabase passt besser)
-
-**File Storage:**
-- Supabase Storage oder AWS S3
-- Für: Template-Assets (Background, Frames, Badges)
-
-**Auth:**
-- Supabase Auth
-- Supports: Email/Password, Google, GitHub OAuth
+**AI (Phase 2):**
+- Claude API für Smart Positioning, Layout-Check, Prompt-based Adjustments
+- Image Analysis für automatisches Cropping, Background Removal
 
 ---
 
-### System-Architektur-Diagramm
+### Datenbank-Schema
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                    MONEY-PRINTER SHOP (Next.js)                 │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌────────────────────────┐       ┌────────────────────────┐   │
-│  │   PUBLIC SHOP          │       │   DESIGNER PORTAL      │   │
-│  │   (existing)           │       │   (NEW)                │   │
-│  │                        │       │                        │   │
-│  │  /                     │       │  /designer             │   │
-│  │  /products             │       │  /designer/onboarding  │   │
-│  │  /customize            │       │  /designer/dashboard   │   │
-│  │  /cart                 │       │  /designer/studio      │   │
-│  └────────────────────────┘       └────────────────────────┘   │
-│              │                                 │                │
-│              └─────────────┬───────────────────┘                │
-│                            │                                    │
-│                            ▼                                    │
-│              ┌──────────────────────────────┐                   │
-│              │     SHARED COMPONENTS        │                   │
-│              │  - BillPreview               │                   │
-│              │  - Generic Renderer          │                   │
-│              │  - PDF Exporter              │                   │
-│              │  - Template Registry         │                   │
-│              └──────────────────────────────┘                   │
-│                            │                                    │
-└────────────────────────────┼────────────────────────────────────┘
-                             │
-                             ▼
-┌──────────────────────────────────────────────────────────────────┐
-│                        SUPABASE                                  │
-├──────────────────────────────────────────────────────────────────┤
-│                                                                  │
-│  ┌──────────────────┐  ┌──────────────────┐  ┌───────────────┐ │
-│  │   PostgreSQL     │  │   Auth           │  │   Storage     │ │
-│  │                  │  │                  │  │               │ │
-│  │  Tables:         │  │  - Designers     │  │  - Templates/ │ │
-│  │  - designers     │  │  - Sessions      │  │    {id}/      │ │
-│  │  - templates     │  │  - OAuth         │  │    - bg.webp  │ │
-│  │  - submissions   │  │                  │  │    - frame.png│ │
-│  │  - reviews       │  │                  │  │    - badges/  │ │
-│  └──────────────────┘  └──────────────────┘  └───────────────┘ │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## Designer-Dashboard
-
-### Dashboard-Features
-
-**Haupt-Navigation:**
-```
-┌─────────────────────────────────────────────────────────────┐
-│  [Logo]  Designer Portal                         [Profile▾] │
-├─────────────────────────────────────────────────────────────┤
-│  Dashboard  |  Templates  |  Ressourcen  |  Support         │
-└─────────────────────────────────────────────────────────────┘
-```
-
----
-
-### 1. Dashboard-Startseite
-
-```
-╔═══════════════════════════════════════════════════════════════╗
-║  Willkommen zurück, [Designer Name]!                          ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  ┌─────────────────────┐  ┌─────────────────────┐            ║
-║  │  DEINE TEMPLATES    │  │  STATUS             │            ║
-║  │                     │  │                     │            ║
-║  │  2 Templates        │  │  1 In Review        │            ║
-║  │  1 Approved         │  │  1 Published        │            ║
-║  │  1 In Review        │  │  0 Changes Needed   │            ║
-║  └─────────────────────┘  └─────────────────────┘            ║
-║                                                               ║
-║  ┌──────────────────────────────────────────────────────┐    ║
-║  │  + NEUES TEMPLATE ERSTELLEN                          │    ║
-║  └──────────────────────────────────────────────────────┘    ║
-║                                                               ║
-║  ═══ DEINE TEMPLATES ═════════════════════════════════════   ║
-║                                                               ║
-║  ┌───────────────────────────────────────────────────────┐   ║
-║  │ [Preview] Handcraft Voucher                           │   ║
-║  │           Status: Published ✓                         │   ║
-║  │           Erstellt: 28. Jan 2026                      │   ║
-║  │           [Bearbeiten] [Vorschau] [Statistiken]       │   ║
-║  └───────────────────────────────────────────────────────┘   ║
-║                                                               ║
-║  ┌───────────────────────────────────────────────────────┐   ║
-║  │ [Preview] Business Card Template                      │   ║
-║  │           Status: In Review 🕐                        │   ║
-║  │           Eingereicht: 3. Feb 2026                    │   ║
-║  │           Feedback: "Bitte QR-Code vergrößern"        │   ║
-║  │           [Bearbeiten] [Kommentare ansehen]           │   ║
-║  └───────────────────────────────────────────────────────┘   ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
-```
-
----
-
-### 2. Ressourcen-Seite
-
-```
-╔═══════════════════════════════════════════════════════════════╗
-║  Ressourcen & Downloads                                       ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  📄 BRIEFING & SPECS                                          ║
-║  ┌───────────────────────────────────────────────────────┐   ║
-║  │ • Designer-Briefing.pdf (Kategorien, Anforderungen)   │   ║
-║  │ • Technische Spezifikationen (Canvas-Größe, DPI)      │   ║
-║  │ • Template-Schema-Dokumentation                       │   ║
-║  │ • Beispiel-Templates (Classic als Referenz)           │   ║
-║  └───────────────────────────────────────────────────────┘   ║
-║                                                               ║
-║  🎨 DESIGN-VORLAGEN                                           ║
-║  ┌───────────────────────────────────────────────────────┐   ║
-║  │ • Figma-Template (3633x1920px mit Guides)             │   ║
-║  │ • Illustrator-Template (.ai)                          │   ║
-║  │ • Photoshop-Template (.psd)                           │   ║
-║  └───────────────────────────────────────────────────────┘   ║
-║                                                               ║
-║  📚 TUTORIALS                                                 ║
-║  ┌───────────────────────────────────────────────────────┐   ║
-║  │ ▶ Video: "So erstellst du dein erstes Template" (8min)│   ║
-║  │ ▶ Video: "Bereiche definieren im Design Studio" (5min)│   ║
-║  │ 📖 Guide: "Best Practices für lesbare Typografie"     │   ║
-║  │ 📖 Guide: "Sicherheitsmerkmale richtig platzieren"    │   ║
-║  └───────────────────────────────────────────────────────┘   ║
-║                                                               ║
-║  💬 COMMUNITY                                                 ║
-║  ┌───────────────────────────────────────────────────────┐   ║
-║  │ • Discord-Channel: Designer-Talk                      │   ║
-║  │ • Slack: #designer-contest                            │   ║
-║  │ • FAQ: Häufige Fragen & Antworten                     │   ║
-║  └───────────────────────────────────────────────────────┘   ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
-```
-
----
-
-## Design-Studio (Konfigurator)
-
-### Der Template-Editor - Das Herzstück
-
-**Ziel:** Designer kann ohne Code ein komplettes Template erstellen.
-
----
-
-### Studio-Layout
-
-```
-┌────────────────────────────────────────────────────────────────────┐
-│  [Logo] Design Studio                              [Save] [Exit]   │
-├────────────────────────────────────────────────────────────────────┤
-│                                                                    │
-│  ┌───────────┬──────────────────────────────────┬──────────────┐  │
-│  │           │                                  │              │  │
-│  │  SIDEBAR  │         CANVAS                   │  PROPERTIES  │  │
-│  │  (Left)   │         (Center)                 │  (Right)     │  │
-│  │           │                                  │              │  │
-│  │  Steps:   │  [Live-Preview des Templates]    │  Selected:   │  │
-│  │           │                                  │              │  │
-│  │  1. Basics│  [Drag & Drop Bereiche]          │  Portrait    │  │
-│  │  2. Assets│                                  │              │  │
-│  │  3. Layout│  Front / Back Tabs               │  Position:   │  │
-│  │  4. Style │                                  │  X: 500      │  │
-│  │  5. Test  │  [Zoom: 50%]                     │  Y: 500      │  │
-│  │           │                                  │  Width: 600  │  │
-│  │           │                                  │  Height: 800 │  │
-│  │           │                                  │              │  │
-│  │           │                                  │  Shape:      │  │
-│  │           │                                  │  ○ Ellipse   │  │
-│  │           │                                  │  ○ Circle    │  │
-│  │           │                                  │  ○ Rectangle │  │
-│  │           │                                  │              │  │
-│  └───────────┴──────────────────────────────────┴──────────────┘  │
-│                                                                    │
-│  [← Prev Step]                          [Next Step → ] [Submit]   │
-└────────────────────────────────────────────────────────────────────┘
-```
-
----
-
-### STEP 1: Basics
-
-**Formular:**
-```
-╔═══════════════════════════════════════════════════════════════╗
-║  Template-Informationen                                       ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  Template-Name:                                               ║
-║  [                                    ]                       ║
-║                                                               ║
-║  Kategorie:                                                   ║
-║  [ ▼ Time Voucher              ]                              ║
-║      • Time Voucher                                           ║
-║      • Business Voucher                                       ║
-║      • Handwerk & Trade                                       ║
-║      • Event Ticket                                           ║
-║      • Gift & Thank-You                                       ║
-║      • Community Currency                                     ║
-║                                                               ║
-║  Kurzbeschreibung:                                            ║
-║  [                                                        ]   ║
-║  [                                                        ]   ║
-║  [                                                        ]   ║
-║  (Max. 280 Zeichen)                                           ║
-║                                                               ║
-║  Tags (optional):                                             ║
-║  [ vintage ] [ colorful ] [ minimalist ] [+ Add]              ║
-║                                                               ║
-║  [Cancel]                              [Save & Continue →]   ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
-```
-
----
-
-### STEP 2: Assets hochladen
-
-**Upload-Interface:**
-```
-╔═══════════════════════════════════════════════════════════════╗
-║  Assets hochladen                                             ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  ┌─────────────────────────────────────────────────────┐     ║
-║  │  BACKGROUND (Pflicht)                               │     ║
-║  │                                                      │     ║
-║  │  ┌────────────────────────────────────────────┐     │     ║
-║  │  │  [Drop file here or click to upload]      │     │     ║
-║  │  │  📁 background.webp (Max 2MB)              │     │     ║
-║  │  │                                             │     │     ║
-║  │  │  Specs: 3633×1920px, WebP/PNG, 600 DPI     │     │     ║
-║  │  └────────────────────────────────────────────┘     │     ║
-║  │                                                      │     ║
-║  │  [Preview]                                           │     ║
-║  │  [✓ Uploaded: background.webp (1.2 MB)]             │     ║
-║  └─────────────────────────────────────────────────────┘     ║
-║                                                               ║
-║  ┌─────────────────────────────────────────────────────┐     ║
-║  │  FRONT FRAME (Optional)                             │     ║
-║  │  ┌────────────────────────────────────────────┐     │     ║
-║  │  │  [Drop file here]                          │     │     ║
-║  │  │  📁 front_frame.png (Max 1MB)              │     │     ║
-║  │  └────────────────────────────────────────────┘     │     ║
-║  └─────────────────────────────────────────────────────┘     ║
-║                                                               ║
-║  ┌─────────────────────────────────────────────────────┐     ║
-║  │  BACK FRAME (Optional)                              │     ║
-║  │  ┌────────────────────────────────────────────┐     │     ║
-║  │  │  [Drop file here]                          │     │     ║
-║  │  │  📁 back_frame.png (Max 1MB)               │     │     ║
-║  │  └────────────────────────────────────────────┘     │     ║
-║  └─────────────────────────────────────────────────────┘     ║
-║                                                               ║
-║  ┌─────────────────────────────────────────────────────┐     ║
-║  │  BADGES (Pflicht)                                   │     ║
-║  │                                                      │     ║
-║  │  Wert-Badges (1h, 5h, 10h):                         │     ║
-║  │  ┌──────┐  ┌──────┐  ┌──────┐                       │     ║
-║  │  │  1h  │  │  5h  │  │ 10h  │                       │     ║
-║  │  │ [📁] │  │ [📁] │  │ [📁] │                       │     ║
-║  │  └──────┘  └──────┘  └──────┘                       │     ║
-║  │  PNG mit Transparenz, ~200×200px, <200KB each       │     ║
-║  │                                                      │     ║
-║  │  [✓ 1.png] [✓ 5.png] [✓ 10.png]                     │     ║
-║  └─────────────────────────────────────────────────────┘     ║
-║                                                               ║
-║  [← Back]                              [Continue →]          ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
-```
-
-**Features:**
-- Drag & Drop Support
-- Live-Preview nach Upload
-- Automatische Validierung (Größe, Format, Dimensionen)
-- Progress-Bar während Upload
-- Fehlermeldungen wenn nicht korrekt
-
----
-
-### STEP 3: Layout (Drag & Drop Editor)
-
-**Der wichtigste Schritt!**
-
-```
-┌────────────────────────────────────────────────────────────────┐
-│  Layout Editor                          [Front] [Back]         │
-├────────────────────────────────────────────────────────────────┤
-│                                                                │
-│  SIDEBAR                    CANVAS                  PROPERTIES │
-│  ─────────                  ──────                  ────────── │
-│                                                                │
-│  Elemente:                 ┌──────────────────┐   Selected:   │
-│                            │                  │   Portrait    │
-│  [📷 Portrait]  ──────────►│  ┌──────────┐   │               │
-│  [💰 Wert-Badge]           │  │          │   │   Position:   │
-│  [📝 Text: Name]           │  │ Portrait │   │   X: 500px    │
-│  [📝 Text: Email]          │  │          │   │   Y: 500px    │
-│  [📝 Text: Phone]          │  └──────────┘   │               │
-│  [📝 Text: Versprechen]    │                  │   Size:       │
-│  [#️⃣ Seriennummer]         │       [Badge]    │   W: 600px    │
-│  [QR QR-Code]              │                  │   H: 800px    │
-│  [🔒 Sicherheit]           │  [Name]          │               │
-│                            │  [Email]         │   Shape:      │
-│  ───────────               │  [Phone]    [QR] │   ◉ Ellipse   │
-│                            │                  │   ○ Circle    │
-│  Layers:                   │  [Seriennr.]     │   ○ Rectangle │
-│  (unten → oben)            │                  │               │
-│                            └──────────────────┘   Features:   │
-│  🔲 Background                                   ☑ Engraving  │
-│  🔲 Frame                                        ☑ BG-Removal │
-│  🔲 Portrait ← SELECTED                          ☐ Grayscale  │
-│  🔲 Badge                                                     │
-│  🔲 Name                                        [Apply]       │
-│  🔲 Email                                                     │
-│  ...                                                          │
-│                                                                │
-│  [+ Add Element]                                              │
-│                                                                │
-└────────────────────────────────────────────────────────────────┘
-```
-
-**Interaktion:**
-
-1. **Element aus Sidebar ziehen** → auf Canvas droppen
-2. **Element auf Canvas** → Drag to reposition
-3. **Element anklicken** → Properties rechts erscheinen
-4. **Resize-Handles** → Größe ändern mit Maus
-5. **Layer-Reihenfolge** → Per Drag in Sidebar ändern
-
-**Properties Panel (kontextuell):**
-
-**Für Portrait-Element:**
-```
-┌────────────────────────┐
-│ Portrait-Bereich       │
-├────────────────────────┤
-│ Position:              │
-│ X: [500] Y: [500]      │
-│                        │
-│ Größe:                 │
-│ W: [600] H: [800]      │
-│                        │
-│ Form:                  │
-│ ◉ Ellipse              │
-│ ○ Circle               │
-│ ○ Rectangle            │
-│                        │
-│ Clipping:              │
-│ ☑ Clip to shape        │
-│                        │
-│ Features:              │
-│ ☑ Zoom & Pan           │
-│ ☑ Engraving-Effekt     │
-│ ☑ BG-Removal           │
-│ ☐ Grayscale            │
-│                        │
-│ [Reset] [Apply]        │
-└────────────────────────┘
-```
-
-**Für Text-Element (z.B. Name):**
-```
-┌────────────────────────┐
-│ Text-Feld: Name        │
-├────────────────────────┤
-│ Position:              │
-│ X: [1816] Y: [1400]    │
-│                        │
-│ Font:                  │
-│ [▼ Playfair Display]   │
-│                        │
-│ Größe:                 │
-│ [48] px                │
-│                        │
-│ Farbe:                 │
-│ [#2a3a2a] 🎨           │
-│                        │
-│ Style:                 │
-│ [ B ] [ I ] [ U ]      │
-│                        │
-│ Ausrichtung:           │
-│ [ ← ] [ ≡ ] [ → ]      │
-│                        │
-│ Max. Breite:           │
-│ [800] px (Wrap)        │
-│                        │
-│ Pflichtfeld:           │
-│ ☑ Erforderlich         │
-│                        │
-│ [Reset] [Apply]        │
-└────────────────────────┘
-```
-
-**Für Sicherheitsmerkmale:**
-```
-┌────────────────────────┐
-│ Sicherheitsmerkmale    │
-├────────────────────────┤
-│                        │
-│ Silber-Folien-Bereich: │
-│ [+ Bereich markieren]  │
-│                        │
-│ ┌────────────────────┐ │
-│ │ Rechteck 1:        │ │
-│ │ X: 100, Y: 100     │ │
-│ │ W: 200, H: 100     │ │
-│ │ [Edit] [Delete]    │ │
-│ └────────────────────┘ │
-│                        │
-│ [+ Weiterer Bereich]   │
-│                        │
-│ Hologramm (optional):  │
-│ ☐ Hologramm verwenden  │
-│ Position: [...]        │
-│                        │
-│ Seriennummer:          │
-│ Position:              │
-│ X: [3400] Y: [1800]    │
-│ Font: [Courier]        │
-│ Größe: [24] px         │
-│                        │
-│ [Apply]                │
-└────────────────────────┘
-```
-
----
-
-### STEP 4: Styling & Feintuning
-
-```
-╔═══════════════════════════════════════════════════════════════╗
-║  Globale Einstellungen                                        ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  Farbvarianten (Hue-Shift):                                   ║
-║  ☑ Hue-Shift aktivieren                                       ║
-║  Betroffene Layer: [☑ Background] [☐ Frame] [☐ Badges]       ║
-║  Standard-Hue: [45°] 🎨                                       ║
-║                                                               ║
-║  ┌───────────────────────────────────────────────────────┐   ║
-║  │  Preview verschiedener Hues:                         │   ║
-║  │  [Vorschau 0°] [Vorschau 45°] [Vorschau 90°] ...     │   ║
-║  └───────────────────────────────────────────────────────┘   ║
-║                                                               ║
-║  ───────────────────────────────────────────────────────────  ║
-║                                                               ║
-║  Globale Schriftart (Falls keine Custom-Fonts):               ║
-║  [▼ Playfair Display]                                         ║
-║                                                               ║
-║  Globale Textfarbe:                                           ║
-║  [#2a3a2a] 🎨                                                 ║
-║                                                               ║
-║  ───────────────────────────────────────────────────────────  ║
-║                                                               ║
-║  Custom Fonts (Optional):                                     ║
-║  ☐ Custom Font verwenden                                      ║
-║  Upload: [.woff2 / .woff / .ttf]                              ║
-║                                                               ║
-║  [← Back]                              [Continue →]          ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
-```
-
----
-
-### STEP 5: Preview & Test
-
-```
-╔═══════════════════════════════════════════════════════════════╗
-║  Vorschau & Test                                              ║
-╠═══════════════════════════════════════════════════════════════╣
-║                                                               ║
-║  [Front] [Back]                     Zoom: [50%] [100%] [200%]║
-║                                                               ║
-║  ┌──────────────────────────────────────────────────────┐    ║
-║  │                                                       │    ║
-║  │            [Live-Preview des Templates]              │    ║
-║  │            mit Test-Daten                             │    ║
-║  │                                                       │    ║
-║  │  [Portrait: Placeholder-Bild]                         │    ║
-║  │  [Name: Max Mustermann]                               │    ║
-║  │  [Email: max@example.com]                             │    ║
-║  │  [Wert: 5 Stunden]                                    │    ║
-║  │                                                       │    ║
-║  └──────────────────────────────────────────────────────┘    ║
-║                                                               ║
-║  Test-Daten:                                                  ║
-║  ☑ Standard-Daten verwenden                                   ║
-║  ☐ Eigene Daten eingeben                                      ║
-║                                                               ║
-║  ┌──────────────────────────────────────────────────────┐    ║
-║  │  Test-PDF generieren:                                │    ║
-║  │  [📥 Download Test-PDF]                               │    ║
-║  │  (PDF mit Wasserzeichen "PREVIEW")                    │    ║
-║  └──────────────────────────────────────────────────────┘    ║
-║                                                               ║
-║  ┌──────────────────────────────────────────────────────┐    ║
-║  │  Mobile-Preview:                                     │    ║
-║  │  [📱 Auf Phone anzeigen]                              │    ║
-║  │  (QR-Code zum Scannen mit Handy)                     │    ║
-║  └──────────────────────────────────────────────────────┘    ║
-║                                                               ║
-║  ───────────────────────────────────────────────────────────  ║
-║                                                               ║
-║  Validierung:                                                 ║
-║  ✓ Alle Pflicht-Assets hochgeladen                            ║
-║  ✓ Bereiche definiert                                         ║
-║  ✓ Keine Überlappungen                                        ║
-║  ⚠ Warnung: QR-Code sehr klein (< 150px)                     ║
-║                                                               ║
-║  [← Back to Edit]                [Submit Template →]         ║
-║                                                               ║
-╚═══════════════════════════════════════════════════════════════╝
-```
-
----
-
-### Optional: KI-gestützte Anpassungen?
-
-**Idee:** Designer kann per Prompt Anpassungen vornehmen.
-
-**Beispiel-UI:**
-```
-┌────────────────────────────────────────────────────────────┐
-│  🤖 AI-Assistent (Beta)                                    │
-├────────────────────────────────────────────────────────────┤
-│                                                            │
-│  Beschreibe was du ändern möchtest:                        │
-│  ┌────────────────────────────────────────────────────┐   │
-│  │ "Mach den Hintergrund etwas blauer und erhöhe den │   │
-│  │  Kontrast der Schrift"                             │   │
-│  └────────────────────────────────────────────────────┘   │
-│                                                            │
-│  [Generate]                                                │
-│                                                            │
-│  ┌────────────────────────────────────────────────────┐   │
-│  │  AI-Vorschlag:                                     │   │
-│  │  • Background Hue +15°                             │   │
-│  │  • Text Color: #1a2a1a (dunkler)                   │   │
-│  │  • Text Shadow: 1px 1px 2px rgba(0,0,0,0.3)       │   │
-│  │                                                    │   │
-│  │  [Apply] [Regenerate] [Cancel]                    │   │
-│  └────────────────────────────────────────────────────┘   │
-│                                                            │
-└────────────────────────────────────────────────────────────┘
-```
-
-**ABER:** Das ist **Optional** und **später**. Erstmal ohne KI starten, Fokus auf manuellen Editor.
-
----
-
-## Integration in Money-Printing App
-
-### Neue Routen & Pages
-
-**In `money-printer-shop` (Next.js):**
-
-```
-src/
-├── pages/
-│   ├── designer/
-│   │   ├── index.tsx                 # Landing/Onboarding
-│   │   ├── dashboard.tsx             # Dashboard
-│   │   ├── studio/
-│   │   │   ├── new.tsx               # Neues Template erstellen
-│   │   │   └── [id].tsx              # Template bearbeiten
-│   │   ├── templates/
-│   │   │   └── [id].tsx              # Template-Details & Stats
-│   │   └── resources.tsx             # Ressourcen-Seite
-│   │
-│   └── api/
-│       └── designer/
-│           ├── templates.ts          # CRUD für Templates
-│           ├── upload.ts             # File-Upload-Handler
-│           ├── submit.ts             # Template submission
-│           └── review.ts             # Review-Feedback (Admin)
-│
-├── components/
-│   └── designer/
-│       ├── Dashboard.tsx
-│       ├── TemplateCard.tsx
-│       ├── Studio/
-│       │   ├── StudioLayout.tsx
-│       │   ├── Sidebar.tsx
-│       │   ├── Canvas.tsx
-│       │   ├── PropertiesPanel.tsx
-│       │   ├── ElementLibrary.tsx
-│       │   └── steps/
-│       │       ├── Step1Basics.tsx
-│       │       ├── Step2Assets.tsx
-│       │       ├── Step3Layout.tsx
-│       │       ├── Step4Styling.tsx
-│       │       └── Step5Preview.tsx
-│       └── Onboarding/
-│           ├── Welcome.tsx
-│           ├── ProfileSetup.tsx
-│           └── CategorySelection.tsx
-│
-├── lib/
-│   └── designer/
-│       ├── templateBuilder.ts        # Template-JSON generieren
-│       ├── validation.ts             # Client-side Validierung
-│       └── storage.ts                # File-Upload zu Supabase
-│
-└── types/
-    └── designer.ts                   # TypeScript Types
-```
-
----
-
-### Auth & Permissions
-
-**User-Rollen:**
-- `customer` (Standard-User, kauft Scheine)
-- `designer` (Designer, erstellt Templates)
-- `admin` (Timo, reviewt Templates)
-
-**Supabase Row-Level Security (RLS):**
+**Wichtigste Tabellen:**
 
 ```sql
--- Designers Table
+-- Designer-Profile
 CREATE TABLE designers (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID REFERENCES auth.users(id) UNIQUE,
@@ -1132,40 +432,45 @@ CREATE TABLE designers (
   portfolio_url TEXT,
   bio TEXT,
   skills TEXT[],
-  status TEXT DEFAULT 'active', -- active, suspended
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  avatar_url TEXT,
+  status TEXT DEFAULT 'active',
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- RLS Policy: Designer kann nur eigene Daten sehen/bearbeiten
-ALTER TABLE designers ENABLE ROW LEVEL SECURITY;
-
-CREATE POLICY "Designers can view own profile"
-  ON designers FOR SELECT
-  USING (auth.uid() = user_id);
-
-CREATE POLICY "Designers can update own profile"
-  ON designers FOR UPDATE
-  USING (auth.uid() = user_id);
-
--- Templates Table
+-- Designer Templates (nur Assets + Skin)
 CREATE TABLE designer_templates (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   designer_id UUID REFERENCES designers(id),
   name TEXT NOT NULL,
-  category TEXT NOT NULL,
-  description TEXT,
-  template_json JSONB NOT NULL, -- Das komplette Template-Schema
-  status TEXT DEFAULT 'draft', -- draft, submitted, in_review, changes_requested, approved, published
-  submitted_at TIMESTAMPTZ,
-  reviewed_at TIMESTAMPTZ,
-  reviewed_by UUID REFERENCES auth.users(id),
-  feedback TEXT,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  category TEXT NOT NULL,        -- Design-Kategorie (Business, Vintage, etc.)
+  use_cases TEXT[],              -- ['visit', 'gift', 'value', 'invite']
+
+  -- Template Skin (Assets + Colors + Fonts)
+  skin JSONB NOT NULL,           -- TemplateSkin Interface
+
+  -- Designer's Example Layout
+  example_layout JSONB NOT NULL, -- Layout Interface
+
+  status TEXT DEFAULT 'draft',
+  usage_count INT DEFAULT 0,     -- Für Ranking
+  created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
--- RLS Policy
+-- User Custom Layouts
+CREATE TABLE user_layouts (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID REFERENCES auth.users(id),
+  template_id UUID REFERENCES designer_templates(id),
+  custom_layout JSONB NOT NULL,  -- User's customized layout
+  use_case TEXT,                  -- 'visit', 'gift', 'value', 'invite'
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+**Row-Level Security (RLS):**
+
+```sql
+-- Designer kann nur eigene Templates sehen/bearbeiten
 ALTER TABLE designer_templates ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Designers can view own templates"
@@ -1176,578 +481,394 @@ CREATE POLICY "Designers can create templates"
   ON designer_templates FOR INSERT
   WITH CHECK (designer_id IN (SELECT id FROM designers WHERE user_id = auth.uid()));
 
-CREATE POLICY "Designers can update own draft/changes_requested templates"
-  ON designer_templates FOR UPDATE
-  USING (
-    designer_id IN (SELECT id FROM designers WHERE user_id = auth.uid())
-    AND status IN ('draft', 'changes_requested')
-  );
-
--- Admin Policy (Timo kann alles sehen/bearbeiten)
-CREATE POLICY "Admins can view all templates"
+-- Admin (Timo) kann alles sehen
+CREATE POLICY "Admins can view all"
   ON designer_templates FOR SELECT
   USING (
     EXISTS (
       SELECT 1 FROM auth.users
-      WHERE id = auth.uid()
-      AND email = 'timo@moneyprinter.app' -- oder role = 'admin'
-    )
-  );
-
-CREATE POLICY "Admins can update all templates"
-  ON designer_templates FOR UPDATE
-  USING (
-    EXISTS (
-      SELECT 1 FROM auth.users
-      WHERE id = auth.uid()
-      AND email = 'timo@moneyprinter.app'
+      WHERE id = auth.uid() AND email = 'timo@moneyprinter.app'
     )
   );
 ```
 
 ---
 
-### File-Upload Flow
+## Designer-Dashboard
 
-**Assets (Background, Frames, Badges) → Supabase Storage:**
-
-```typescript
-// lib/designer/storage.ts
-
-import { supabase } from '@/lib/supabase';
-
-export async function uploadTemplateAsset(
-  templateId: string,
-  file: File,
-  type: 'background' | 'front_frame' | 'back_frame' | 'badge'
-): Promise<string> {
-  // Dateiname mit Template-ID prefixen
-  const fileName = `${templateId}/${type}_${Date.now()}_${file.name}`;
-
-  // Upload zu Supabase Storage
-  const { data, error } = await supabase.storage
-    .from('designer-templates') // Bucket
-    .upload(fileName, file, {
-      cacheControl: '3600',
-      upsert: false
-    });
-
-  if (error) throw error;
-
-  // Public URL zurückgeben
-  const { data: { publicUrl } } = supabase.storage
-    .from('designer-templates')
-    .getPublicUrl(fileName);
-
-  return publicUrl;
-}
-
-// Validierung vor Upload
-export function validateTemplateAsset(
-  file: File,
-  type: 'background' | 'frame' | 'badge'
-): { valid: boolean; error?: string } {
-  // Größe prüfen
-  const maxSize = type === 'background' ? 2 * 1024 * 1024 : 1 * 1024 * 1024; // 2MB / 1MB
-  if (file.size > maxSize) {
-    return { valid: false, error: `Datei zu groß (Max: ${maxSize / 1024 / 1024}MB)` };
-  }
-
-  // Format prüfen
-  const allowedFormats = ['image/webp', 'image/png'];
-  if (!allowedFormats.includes(file.type)) {
-    return { valid: false, error: 'Nur WebP und PNG erlaubt' };
-  }
-
-  // Dimensionen prüfen (async, muss im Component gemacht werden)
-  // TODO: Image-Dimensionen validieren
-
-  return { valid: true };
-}
-```
-
-**In React-Component:**
-
-```typescript
-// components/designer/Studio/Step2Assets.tsx
-
-import { uploadTemplateAsset, validateTemplateAsset } from '@/lib/designer/storage';
-
-function Step2Assets({ templateId, onComplete }) {
-  const [uploadProgress, setUploadProgress] = useState(0);
-  const [assets, setAssets] = useState({
-    background: null,
-    frontFrame: null,
-    backFrame: null,
-    badges: {}
-  });
-
-  async function handleFileUpload(file: File, type: string) {
-    // Validierung
-    const validation = validateTemplateAsset(file, type);
-    if (!validation.valid) {
-      alert(validation.error);
-      return;
-    }
-
-    // Upload
-    try {
-      const publicUrl = await uploadTemplateAsset(templateId, file, type);
-      setAssets(prev => ({ ...prev, [type]: publicUrl }));
-    } catch (error) {
-      console.error('Upload failed:', error);
-      alert('Upload fehlgeschlagen');
-    }
-  }
-
-  return (
-    <div>
-      <h2>Assets hochladen</h2>
-
-      {/* Background Upload */}
-      <div>
-        <h3>Background (Pflicht)</h3>
-        <input
-          type="file"
-          accept="image/webp,image/png"
-          onChange={(e) => handleFileUpload(e.target.files[0], 'background')}
-        />
-        {assets.background && <img src={assets.background} alt="Preview" />}
-      </div>
-
-      {/* ... weitere Uploads */}
-
-      <button onClick={() => onComplete(assets)}>Weiter</button>
-    </div>
-  );
-}
-```
-
----
-
-## Datenmodell
-
-### Datenbank-Schema (Supabase/PostgreSQL)
-
-```sql
--- Designers
-CREATE TABLE designers (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID REFERENCES auth.users(id) UNIQUE,
-  name TEXT NOT NULL,
-  email TEXT NOT NULL,
-  portfolio_url TEXT,
-  bio TEXT,
-  skills TEXT[], -- ['Figma', 'Illustrator', 'Photoshop']
-  avatar_url TEXT,
-  status TEXT DEFAULT 'active', -- active, suspended
-  invite_code TEXT UNIQUE, -- Der Einladungscode
-  invited_at TIMESTAMPTZ,
-  onboarded_at TIMESTAMPTZ,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Templates
-CREATE TABLE designer_templates (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  designer_id UUID REFERENCES designers(id) ON DELETE CASCADE,
-
-  -- Metadata
-  name TEXT NOT NULL,
-  category TEXT NOT NULL, -- 'time-voucher', 'business', 'handwerk', etc.
-  description TEXT,
-  tags TEXT[],
-
-  -- Template-JSON (das komplette Schema!)
-  template_json JSONB NOT NULL,
-
-  -- Status & Lifecycle
-  status TEXT DEFAULT 'draft', -- draft, submitted, in_review, changes_requested, approved, published, deprecated
-  version TEXT DEFAULT '1.0.0',
-
-  -- Review
-  submitted_at TIMESTAMPTZ,
-  reviewed_at TIMESTAMPTZ,
-  reviewed_by UUID REFERENCES auth.users(id),
-  feedback JSONB, -- { comments: [...], changes_requested: [...] }
-  approved_at TIMESTAMPTZ,
-  published_at TIMESTAMPTZ,
-
-  -- Assets (URLs zu Supabase Storage)
-  assets JSONB, -- { background: 'url', frontFrame: 'url', ... }
-
-  -- Stats (später)
-  views INT DEFAULT 0,
-  downloads INT DEFAULT 0,
-
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Template-Versionen (für History)
-CREATE TABLE template_versions (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  template_id UUID REFERENCES designer_templates(id) ON DELETE CASCADE,
-  version TEXT NOT NULL,
-  template_json JSONB NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  created_by UUID REFERENCES auth.users(id)
-);
-
--- Review-Comments (für Feedback-Thread)
-CREATE TABLE template_reviews (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  template_id UUID REFERENCES designer_templates(id) ON DELETE CASCADE,
-  reviewer_id UUID REFERENCES auth.users(id),
-  comment TEXT NOT NULL,
-  type TEXT, -- 'feedback', 'approval', 'rejection'
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
--- Indices
-CREATE INDEX idx_designer_templates_designer ON designer_templates(designer_id);
-CREATE INDEX idx_designer_templates_status ON designer_templates(status);
-CREATE INDEX idx_designer_templates_category ON designer_templates(category);
-```
-
----
-
-### TypeScript Types
-
-```typescript
-// types/designer.ts
-
-export interface Designer {
-  id: string;
-  user_id: string;
-  name: string;
-  email: string;
-  portfolio_url?: string;
-  bio?: string;
-  skills?: string[];
-  avatar_url?: string;
-  status: 'active' | 'suspended';
-  invite_code?: string;
-  invited_at?: string;
-  onboarded_at?: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface DesignerTemplate {
-  id: string;
-  designer_id: string;
-  name: string;
-  category: TemplateCategory;
-  description?: string;
-  tags?: string[];
-  template_json: TemplateJSON; // Das komplette Template-Schema (siehe Spec)
-  status: TemplateStatus;
-  version: string;
-  submitted_at?: string;
-  reviewed_at?: string;
-  reviewed_by?: string;
-  feedback?: TemplateFeedback;
-  approved_at?: string;
-  published_at?: string;
-  assets: TemplateAssets;
-  views: number;
-  downloads: number;
-  created_at: string;
-  updated_at: string;
-}
-
-export type TemplateCategory =
-  | 'time-voucher'
-  | 'business'
-  | 'handwerk'
-  | 'event-ticket'
-  | 'gift-thank-you'
-  | 'community-currency';
-
-export type TemplateStatus =
-  | 'draft'
-  | 'submitted'
-  | 'in_review'
-  | 'changes_requested'
-  | 'approved'
-  | 'published'
-  | 'deprecated';
-
-export interface TemplateFeedback {
-  comments: Array<{
-    id: string;
-    reviewer: string;
-    text: string;
-    timestamp: string;
-  }>;
-  changes_requested?: string[];
-}
-
-export interface TemplateAssets {
-  background: string; // URL
-  frontFrame?: string;
-  backFrame?: string;
-  badges: {
-    [value: string]: string; // { "1": "url", "5": "url", "10": "url" }
-  };
-}
-
-// Template-JSON entspricht der bestehenden Spec
-export interface TemplateJSON {
-  id: string;
-  version: string;
-  name: string;
-  type: string;
-  designer: {
-    name: string;
-    url?: string;
-    email?: string;
-  };
-  assets: {
-    background: string;
-    frontFrame?: string;
-    backFrame?: string;
-    badges?: any;
-  };
-  schema: {
-    fields: Field[];
-    // ... siehe Template-Spec
-  };
-  layout: {
-    dimensions: { width: number; height: number; dpi: number };
-    front: { layers: Layer[] };
-    back: { layers: Layer[] };
-  };
-  security?: {
-    silverFoilArea?: any;
-    hologramArea?: any;
-    serialNumberPosition?: any;
-  };
-}
-
-// ... weitere Types aus der Template-Spec
-```
-
----
-
-## Admin-View (für dich)
-
-### Admin-Dashboard Route
-
-**`/admin/designer-contest`**
+### Dashboard-Übersicht
 
 ```
 ╔═══════════════════════════════════════════════════════════════╗
-║  Designer Contest - Admin Dashboard                          ║
+║  Designer Portal                              [Profile▾]      ║
+╠═══════════════════════════════════════════════════════════════╣
+║  Dashboard  |  Templates  |  Stats  |  Ressourcen  |  FAQ     ║
 ╠═══════════════════════════════════════════════════════════════╣
 ║                                                               ║
-║  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ ║
-║  │  DESIGNER       │  │  TEMPLATES      │  │  STATUS      │ ║
-║  │                 │  │                 │  │              │ ║
-║  │  10 Total       │  │  18 Total       │  │  3 Review    │ ║
-║  │  8 Active       │  │  12 Published   │  │  2 Approved  │ ║
-║  │  2 Inactive     │  │  3 In Review    │  │  1 Changes   │ ║
-║  └─────────────────┘  └─────────────────┘  └──────────────┘ ║
+║  Willkommen zurück, [Designer Name]!                          ║
 ║                                                               ║
-║  ═══ PENDING REVIEWS ═════════════════════════════════════   ║
-║                                                               ║
-║  ┌──────────────────────────────────────────────────────┐    ║
-║  │ [Preview] Business Card Template                     │    ║
-║  │           Designer: Anna Schmidt                      │    ║
-║  │           Kategorie: Business                         │    ║
-║  │           Eingereicht: 3. Feb 2026 (vor 2 Tagen)     │    ║
-║  │           [Review starten] [Vorschau] [Ablehnen]     │    ║
-║  └──────────────────────────────────────────────────────┘    ║
+║  ┌─────────────────────┐  ┌─────────────────────┐            ║
+║  │  DEINE TEMPLATES    │  │  PERFORMANCE        │            ║
+║  │                     │  │                     │            ║
+║  │  3 Published        │  │  142 Prints         │            ║
+║  │  1 In Review        │  │  Rank #5 (Gallery)  │            ║
+║  │  0 Draft            │  │  Trending ↗         │            ║
+║  └─────────────────────┘  └─────────────────────┘            ║
 ║                                                               ║
 ║  ┌──────────────────────────────────────────────────────┐    ║
-║  │ [Preview] Handcraft Voucher                          │    ║
-║  │           Designer: Max Weber                         │    ║
-║  │           Kategorie: Handwerk                         │    ║
-║  │           Eingereicht: 4. Feb 2026 (vor 1 Tag)       │    ║
-║  │           [Review starten]                            │    ║
+║  │  + NEUES TEMPLATE ERSTELLEN                          │    ║
 ║  └──────────────────────────────────────────────────────┘    ║
 ║                                                               ║
-║  ═══ ALLE TEMPLATES ══════════════════════════════════════   ║
+║  ═══ DEINE TEMPLATES ═════════════════════════════════════   ║
 ║                                                               ║
-║  Filter: [▼ Alle Status] [▼ Alle Kategorien]                 ║
-║          [Search: Designer oder Template-Name]                ║
+║  ┌───────────────────────────────────────────────────────┐   ║
+║  │ [Preview] Vintage Time Voucher                        │   ║
+║  │           Kategorien: Vintage/Heritage                │   ║
+║  │           Use-Cases: VISIT, GIFT                      │   ║
+║  │           Status: Published ✓                         │   ║
+║  │           Usage: 87 Prints | Rank #5                  │   ║
+║  │           [Bearbeiten] [Stats] [Vorschau]             │   ║
+║  └───────────────────────────────────────────────────────┘   ║
 ║                                                               ║
-║  [Table mit allen Templates, sortierbar, filterbar]          ║
+║  ┌───────────────────────────────────────────────────────┐   ║
+║  │ [Preview] Modern Business Card                        │   ║
+║  │           Kategorien: Business/Professional           │   ║
+║  │           Use-Cases: VISIT, VALUE                     │   ║
+║  │           Status: In Review 🕐                        │   ║
+║  │           Eingereicht: vor 2 Tagen                    │   ║
+║  │           [Bearbeiten] [Status]                       │   ║
+║  └───────────────────────────────────────────────────────┘   ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 ```
 
 ---
 
-### Review-Page
+## Shared LayoutEditor Component
 
-**`/admin/designer-contest/review/[templateId]`**
+### Architektur
 
+**Kernprinzip:** Designer und Kunde nutzen EXAKT denselben Editor-Component.
+
+```typescript
+interface LayoutEditorProps {
+  mode: 'designer' | 'customer';
+  templateSkin: TemplateSkin;        // Design assets vom Designer
+  initialLayout?: Layout;            // Für Customer = Designer's Beispiel
+  availableElements: ElementType[];  // z.B. ['portrait', 'name', 'email', ...]
+  onSave: (layout: Layout) => void;
+  readOnly?: boolean;
+}
+
+function LayoutEditor({ mode, templateSkin, initialLayout, ... }: LayoutEditorProps) {
+  // Shared logic für Drag & Drop, Positionierung, Rendering
+  // Modus-spezifische Unterschiede:
+  // - Designer: Kann Skin-Elemente (Background, Frames) ändern
+  // - Customer: Kann nur Layout anpassen, nicht Assets
+}
+```
+
+### Phase 1: Einfacher Editor
+
+**Features:**
+- Drag Elements aus Sidebar auf Canvas
+- Positionierung per Drag oder Koordinaten-Input
+- Resize-Handles für Größenanpassung
+- Properties Panel für Element-Config
+- Layer-Reihenfolge (einfache Liste)
+- Live-Preview
+
+**UI-Layout:**
 ```
 ┌────────────────────────────────────────────────────────────────┐
-│  Template-Review                                [Back]          │
+│  Layout Editor                          [Save] [Cancel]         │
 ├────────────────────────────────────────────────────────────────┤
 │                                                                │
-│  ┌────────────────────────────────────────────────────────┐   │
-│  │  Business Card Template                                │   │
-│  │  von Anna Schmidt                                      │   │
-│  │  Eingereicht: 3. Feb 2026                              │   │
-│  └────────────────────────────────────────────────────────┘   │
+│  SIDEBAR            CANVAS                  PROPERTIES         │
+│  ─────────          ──────                  ──────────         │
 │                                                                │
-│  ┌──────────────────────┬──────────────────────────────────┐  │
-│  │  PREVIEW             │  DETAILS                         │  │
-│  │                      │                                  │  │
-│  │  [Front-Ansicht]     │  Kategorie: Business             │  │
-│  │                      │  Tags: minimalist, clean         │  │
-│  │  [Live-Preview]      │  Beschreibung: "Modern..."       │  │
-│  │                      │                                  │  │
-│  │  [Back-Ansicht]      │  Assets:                         │  │
-│  │                      │  • Background: bg.webp (1.8 MB)  │  │
-│  │  [Test-PDF laden]    │  • Front Frame: frame.png (900KB)│  │
-│  │                      │  • Badges: ✓ All uploaded        │  │
-│  │                      │                                  │  │
-│  │  [Mobile-View]       │  Validation:                     │  │
-│  │                      │  ✓ Schema valid                  │  │
-│  │                      │  ✓ Assets complete               │  │
-│  │                      │  ✓ Layout ok                     │  │
-│  │                      │  ⚠ QR-Code klein (150px)         │  │
-│  │                      │                                  │  │
-│  └──────────────────────┴──────────────────────────────────┘  │
-│                                                                │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │  FEEDBACK & KOMMENTARE                                   │ │
-│  ├──────────────────────────────────────────────────────────┤ │
-│  │                                                          │ │
-│  │  [Textarea für Feedback]                                 │ │
-│  │  "Bitte QR-Code auf mindestens 200×200px vergrößern"    │ │
-│  │                                                          │ │
-│  │  ☐ Änderungen erforderlich                               │ │
-│  │  ☐ Freigeben                                             │ │
-│  │  ☐ Ablehnen                                              │ │
-│  │                                                          │ │
-│  │  [Submit Feedback]                                       │ │
-│  └──────────────────────────────────────────────────────────┘ │
-│                                                                │
-│  ┌──────────────────────────────────────────────────────────┐ │
-│  │  QUICK ACTIONS                                           │ │
-│  │  [✓ Approve & Publish]  [⚠ Request Changes]  [✗ Reject] │ │
-│  └──────────────────────────────────────────────────────────┘ │
+│  Elements:         ┌──────────────────┐   Selected:           │
+│                    │                  │   Portrait            │
+│  [📷 Portrait]     │  ┌──────────┐   │                       │
+│  [💰 Value]        │  │          │   │   Position:           │
+│  [📝 Name]         │  │ Portrait │   │   X: 500px            │
+│  [📝 Email]        │  │          │   │   Y: 500px            │
+│  [QR QR-Code]      │  └──────────┘   │                       │
+│                    │                  │   Size:               │
+│                    │     [Value]      │   W: 600px            │
+│  Layers:           │                  │   H: 800px            │
+│  (bottom→top)      │  [Name]          │                       │
+│                    │  [Email]    [QR] │   Shape:              │
+│  🔲 Background     │                  │   ◉ Ellipse           │
+│  🔲 Frame          │  [Serial No.]    │   ○ Circle            │
+│  🔲 Portrait ✓     │                  │   ○ Rectangle         │
+│  🔲 Value          └──────────────────┘                       │
+│  🔲 Name                                [Apply Changes]       │
+│  ...                                                           │
 │                                                                │
 └────────────────────────────────────────────────────────────────┘
 ```
+
+### Phase 2: Advanced Editor mit AI
+
+**Additional Features:**
+- Vollständig freies Drag & Drop (react-dnd)
+- Advanced Layer-Management (Gruppierung, Locking)
+- AI-Suggestions beim Platzieren
+- Layout-Check mit Warnings
+- Prompt-based Adjustments
+- Effekte (Schatten, Transparenz, etc.)
+
+---
+
+## Gallery & Ranking System
+
+### Public Gallery
+
+**Ziel:** Social Proof durch meistgedruckte Templates.
+
+**Features:**
+- Alle published Templates in Grid-Ansicht
+- Sortierung nach:
+  - **Beliebtheit** (meistgedruckt) ⭐ Default
+  - Neueste
+  - Design-Kategorie
+  - Use-Case
+- Designer-Credit prominent
+- Preview & "Use This Template" Button
+
+**UI:**
+```
+╔═══════════════════════════════════════════════════════════════╗
+║  Template Gallery                                             ║
+╠═══════════════════════════════════════════════════════════════╣
+║  Filter: [All Categories▾] [All Use-Cases▾]                   ║
+║  Sort by: [◉ Most Printed] [ Newest ] [ Designer Name ]       ║
+╠═══════════════════════════════════════════════════════════════╣
+║                                                               ║
+║  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          ║
+║  │ [Preview]   │  │ [Preview]   │  │ [Preview]   │          ║
+║  │             │  │             │  │             │          ║
+║  │ Vintage     │  │ Modern      │  │ Spiritual   │          ║
+║  │ Voucher     │  │ Business    │  │ Wellness    │          ║
+║  │             │  │             │  │             │          ║
+║  │ by Anna S.  │  │ by Max W.   │  │ by Lisa M.  │          ║
+║  │ 🔥 142 prints│  │ 🔥 98 prints │  │ 🔥 87 prints │          ║
+║  │ [Use This]  │  │ [Use This]  │  │ [Use This]  │          ║
+║  └─────────────┘  └─────────────┘  └─────────────┘          ║
+║                                                               ║
+║  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐          ║
+║  │ ...         │  │ ...         │  │ ...         │          ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+**Ranking Algorithm:**
+```typescript
+interface TemplateRankingScore {
+  templateId: string;
+  usageCount: number;      // Anzahl Bestellungen
+  recentUsage: number;     // Letzte 30 Tage
+  trending: boolean;       // Stark steigend?
+  score: number;           // Gewichtete Score für Ranking
+}
+
+function calculateRankingScore(template: DesignerTemplate): number {
+  const usageWeight = 0.6;
+  const recencyWeight = 0.3;
+  const trendingWeight = 0.1;
+
+  return (
+    template.usage_count * usageWeight +
+    template.recent_usage_30d * recencyWeight +
+    (template.trending ? 100 : 0) * trendingWeight
+  );
+}
+```
+
+---
+
+## Integration in Money-Printing App
+
+### Neue Routen
+
+**Designer-Portal:**
+```
+/designer                  # Landing & Onboarding
+/designer/dashboard        # Dashboard
+/designer/templates/new    # Neues Template erstellen
+/designer/templates/:id    # Template bearbeiten
+/designer/stats           # Performance Stats
+/designer/resources       # Briefing, Specs, FAQ
+```
+
+**Shop-Integration:**
+```
+/templates                 # Public Gallery
+/templates/:id/preview     # Template-Preview
+/customize                 # Customer nutzt LayoutEditor (mode='customer')
+```
+
+### Shared Components
+
+```
+src/
+├── components/
+│   ├── shared/
+│   │   ├── LayoutEditor.tsx          # SHARED between designer & customer
+│   │   ├── BillPreview.tsx
+│   │   ├── TemplateRenderer.tsx
+│   │   └── PDFExporter.tsx
+│   │
+│   ├── designer/
+│   │   ├── Dashboard.tsx
+│   │   ├── TemplateWizard/
+│   │   │   ├── Step1Category.tsx
+│   │   │   ├── Step2Assets.tsx
+│   │   │   ├── Step3Colors.tsx
+│   │   │   ├── Step4Layout.tsx       # Uses LayoutEditor
+│   │   │   └── Step5Preview.tsx
+│   │   └── StatsCard.tsx
+│   │
+│   └── shop/
+│       ├── TemplateGallery.tsx
+│       ├── TemplateCard.tsx
+│       └── CustomizeView.tsx          # Uses LayoutEditor
+│
+├── lib/
+│   ├── designer/
+│   │   ├── storage.ts                 # Asset upload
+│   │   ├── templateBuilder.ts         # Generate template JSON
+│   │   └── validation.ts
+│   │
+│   └── layout/
+│       ├── layoutEngine.ts            # Layout calculations
+│       └── aiSuggestions.ts           # Phase 2: AI features
+│
+└── types/
+    ├── designer.ts
+    ├── template.ts
+    └── layout.ts
+```
+
+---
+
+## Admin-View (für Timo)
+
+### Admin-Dashboard
+
+**Route:** `/admin/designer-templates`
+
+```
+╔═══════════════════════════════════════════════════════════════╗
+║  Designer Templates - Admin                                   ║
+╠═══════════════════════════════════════════════════════════════╣
+║                                                               ║
+║  ┌─────────────────┐  ┌─────────────────┐  ┌──────────────┐ ║
+║  │  DESIGNER       │  │  TEMPLATES      │  │  PENDING     │ ║
+║  │  12 Active      │  │  24 Published   │  │  3 Review    │ ║
+║  └─────────────────┘  └─────────────────┘  └──────────────┘ ║
+║                                                               ║
+║  ═══ PENDING REVIEWS ═════════════════════════════════════   ║
+║                                                               ║
+║  ┌──────────────────────────────────────────────────────┐    ║
+║  │ [Preview] Wellness Voucher                           │    ║
+║  │           Designer: Lisa Müller                       │    ║
+║  │           Kategorie: Wellness, Use-Cases: VISIT,GIFT │    ║
+║  │           Eingereicht: vor 1 Tag                      │    ║
+║  │           [Review] [Approve] [Request Changes]       │    ║
+║  └──────────────────────────────────────────────────────┘    ║
+║                                                               ║
+║  ═══ ALL TEMPLATES ═══════════════════════════════════════   ║
+║                                                               ║
+║  Filter: [Status▾] [Category▾] [Designer▾]  [Search...]      ║
+║                                                               ║
+║  [Table: All templates with status, usage, actions]          ║
+║                                                               ║
+╚═══════════════════════════════════════════════════════════════╝
+```
+
+### Review-Workflow
+
+**1. Admin öffnet Review-Page**
+- Sieht Template-Preview (Front & Back)
+- Kann Test-PDF generieren
+- Sieht alle Assets & Metadaten
+- Validierungs-Ergebnisse
+
+**2. Feedback geben**
+- Kommentar schreiben
+- Status setzen:
+  - ✅ **Approve** → Published
+  - ⚠️ **Request Changes** → Designer muss nachbessern
+  - ❌ **Reject** → Template abgelehnt
+
+**3. Designer wird benachrichtigt**
+- E-Mail mit Feedback
+- Dashboard zeigt neuen Status
+- Bei "Changes Requested" kann Designer bearbeiten und neu einreichen
 
 ---
 
 ## Timeline & Roadmap
 
-### Entwicklungs-Phasen
-
-#### **Phase 0: Vorbereitung (1 Woche)**
-**Ziel:** Planung finalisieren, Tech-Stack entscheiden
-
-- [x] Konzept schreiben (dieses Dokument)
-- [ ] Kategorien finalisieren (mit Timo besprechen)
-- [ ] Tech-Stack-Entscheidung (Supabase? Firebase? Eigenes Backend?)
-- [ ] Designer-Briefing-Dokument schreiben
-- [ ] Figma-Vorlagen erstellen (für Designer)
-- [ ] Invite-Liste (10 Designer identifizieren)
-
----
-
-#### **Phase 1: Foundation (2 Wochen)**
-**Ziel:** Auth, Datenbank, Basic UI
+### Phase 1: MVP Template System (1-2 Wochen)
 
 **Woche 1:**
 - [ ] Supabase Setup (Database, Auth, Storage)
-- [ ] Schema erstellen (Tabellen, RLS Policies)
-- [ ] Auth-Flow implementieren (Sign-up, Login, OAuth)
-- [ ] Designer-Rolle & Permissions
-- [ ] Basic Routing (`/designer/*`)
+- [ ] Schema erstellen, RLS Policies
+- [ ] Auth-Flow (Sign-up, Login)
+- [ ] Designer-Dashboard (Basic UI)
+- [ ] Routing (`/designer/*`)
 
 **Woche 2:**
-- [ ] Dashboard-Page (UI only, noch keine Funktionalität)
-- [ ] Onboarding-Flow (Profil erstellen, Skills, Portfolio)
-- [ ] Ressourcen-Seite (statisch, Briefing-PDFs)
-- [ ] Designer-Profil-Edit
+- [ ] Asset-Upload-Flow
+- [ ] LayoutEditor Component (Basic Version)
+- [ ] Template Submission Flow
+- [ ] Admin-Review-Page
+- [ ] Public Gallery mit Ranking
+
+**DONE:** Phase 1 MVP launchbereit!
 
 ---
 
-#### **Phase 2: Design Studio (3-4 Wochen)**
-**Ziel:** Template-Editor voll funktionsfähig
+### Phase 2: Full Canvas Editor mit AI (4-6 Wochen nach Launch)
 
-**Woche 3:**
-- [ ] Studio-Layout (Sidebar, Canvas, Properties)
-- [ ] Step 1: Basics (Formular)
-- [ ] Step 2: Assets-Upload (Drag & Drop, Validation)
-- [ ] File-Upload zu Supabase Storage
-- [ ] Preview nach Upload
+**Woche 1-2: Advanced Editor**
+- [ ] react-dnd Integration
+- [ ] Advanced Layer-Management
+- [ ] Properties Panel erweitern
+- [ ] Effekte & Styling
 
-**Woche 4:**
-- [ ] Step 3: Layout-Editor - Part 1
-  - [ ] Drag & Drop von Elementen auf Canvas
-  - [ ] Element-Positionierung
-  - [ ] Resize-Handles
+**Woche 3-4: AI-Integration**
+- [ ] Smart Positioning (Claude API)
+- [ ] Layout-Check
+- [ ] Hue-Shift für Farbvarianten
+- [ ] Image Analysis für Auto-Crop
 
-**Woche 5:**
-- [ ] Step 3: Layout-Editor - Part 2
-  - [ ] Properties Panel (kontextuell)
-  - [ ] Layer-Management
-  - [ ] Sicherheitsmerkmale definieren
+**Woche 5-6: Prompt-based Adjustments**
+- [ ] Natural Language Interface
+- [ ] "Mach das größer" → AI interpretiert & ändert Layout
+- [ ] Context-aware Suggestions
+- [ ] Testing & Refinement
 
-**Woche 6:**
-- [ ] Step 4: Styling (Hue-Shift, Fonts, Colors)
-- [ ] Step 5: Preview & Test (Live-Preview, Test-PDF)
-- [ ] Template-JSON generieren & speichern
+**DONE:** Phase 2 Advanced Features live!
 
 ---
 
-#### **Phase 3: Review & Admin (1 Woche)**
-**Ziel:** Admin-Dashboard für Timo
+### Post-Launch (Continuous)
 
-**Woche 7:**
-- [ ] Admin-Dashboard (`/admin/designer-contest`)
-- [ ] Template-Liste mit Filter/Search
-- [ ] Review-Page (Template ansehen, Feedback geben)
-- [ ] Status-Updates (Approve, Request Changes, Reject)
-- [ ] Notifications an Designer (Email)
+**Analytics & Optimization:**
+- [ ] A/B-Testing für Gallery-UI
+- [ ] Designer-Performance-Dashboard
+- [ ] Revenue-Share-System (optional)
+- [ ] Designer-Community-Features (Forum, Discord)
 
----
-
-#### **Phase 4: Integration & Testing (1 Woche)**
-**Ziel:** In Money-Printing Shop integrieren
-
-**Woche 8:**
-- [ ] Approved Templates in Shop-Registry integrieren
-- [ ] Template-Selector im Shop (wenn Template wählen)
-- [ ] End-to-End-Test: Designer erstellt → Timo reviewt → Published → Kunde bestellt
-- [ ] Bug-Fixes & Polish
-
----
-
-#### **Phase 5: Launch (1 Woche)**
-**Ziel:** Designer einladen, Contest starten
-
-**Woche 9:**
-- [ ] Finale Tests
-- [ ] Briefing-Materialien fertigstellen
-- [ ] Video-Tutorials aufnehmen
-- [ ] E-Mails an 10 Designer senden
-- [ ] Launch! 🚀
-
----
-
-### Gesamt-Timeline
-
-**Total: ~9 Wochen** (ca. 2 Monate)
-
-**Wenn Start: 10. Februar 2026**
-→ **Launch Mitte April 2026**
-
-**Für Money-Printing Launch März 2026:**
-→ Entweder Contest VOR Launch (sehr knapp)
-→ Oder Contest parallel/nach Launch (besser)
+**Expansion:**
+- [ ] Mehr Design-Kategorien
+- [ ] Kollaborations-Features (Team-Templates)
+- [ ] White-Label-Optionen für große Designer
+- [ ] Template-Varianten (Seasons, Holidays)
 
 ---
 
@@ -1755,77 +876,62 @@ export interface TemplateJSON {
 
 ### Für Timo zu entscheiden:
 
-1. **Tech-Stack:**
-   - Supabase (empfohlen) oder Firebase?
-   - Oder eigenes Backend (Node.js/Express)?
+1. **Timeline bestätigen:**
+   - Phase 1 in 1-2 Wochen realistisch? (mit Anton's AI-assisted Development)
+   - Phase 2 nach Launch oder schon vorher?
 
-2. **Kategorien:**
-   - Sind die 6 Kategorien okay?
-   - Prioritäten richtig gesetzt?
+2. **Designer-Incentives:**
+   - Credit + Portfolio-Link ausreichend?
+   - Revenue-Share später einführen?
+   - Einmalige Zahlung pro Template?
 
-3. **Anzahl Designer:**
-   - 10 Designer ausreichend?
-   - Oder mehr einladen?
+3. **Qualitätskontrolle:**
+   - Nur Timo reviewt oder auch Anton/Team?
+   - Automatische Validierung ausreichend für Auto-Approve?
 
-4. **Incentives:**
-   - Was bekommen Designer?
-   - Credit + Portfolio-Link?
-   - Revenue-Share später?
-   - Einmalige Zahlung?
+4. **Gallery:**
+   - Public Ranking wirklich anzeigen (z.B. "142 Prints")?
+   - Oder abstrahieren (z.B. nur "Popular", "Trending")?
 
-5. **KI-Assistent:**
-   - Jetzt schon einbauen oder später?
-   - Empfehlung: Später (V2)
-
-6. **Template-Review:**
-   - Wer reviewt außer Timo?
-   - Anton, Sebastian, Mathias einbinden?
-
-7. **Timeline:**
-   - 9 Wochen realistisch?
-   - Deadline flexibel?
+5. **Phase 2 AI:**
+   - Welche AI-Features priorisieren?
+   - Budget für Claude API Calls?
 
 ---
 
 ## Next Steps
 
-### Sofort (diese Woche):
+### Diese Woche:
 
-1. **Timo reviewed dieses Konzept** ✅
+1. **Timo reviewed Konzept** ✅
 2. **Meeting:** Konzept besprechen, offene Fragen klären
-3. **Entscheidungen treffen:** Tech-Stack, Timeline, Incentives
-4. **Kategorien finalisieren**
-5. **Go/No-Go Entscheidung**
+3. **Go/No-Go Entscheidung**
+4. **Anton briefen:** Phase 1 Spec schon vorhanden ([designer-onboarding-phase1-spec.md](c:\Users\Timo\Worspace\Vision\designer-onboarding-phase1-spec.md))
 
 ### Wenn Go:
 
-6. **Phase 0 starten:** Supabase Setup, Schema-Design
-7. **Designer-Liste:** 10 Designer identifizieren & kontaktieren
-8. **Briefing schreiben:** Designer-Briefing-Dokument
-9. **Figma-Vorlagen erstellen**
-10. **Development kickoff:** Phase 1 starten
+5. **Phase 1 Development starten** (1-2 Wochen)
+6. **Designer-Briefing-Dokument schreiben**
+7. **Template-Vorlagen erstellen** (Figma, Illustrator)
+8. **Launch vorbereiten**
 
 ---
 
 ## Anhang: Ressourcen
 
-### Bestehende Docs (relevant):
-
+### Bestehende Docs:
+- [Phase 1 Technical Specification](c:\Users\Timo\Worspace\Vision\designer-onboarding-phase1-spec.md) - Für Anton
 - [Template-System-Spezifikation](c:\Users\Timo\Worspace\money-printing\docs\02-produkt\template-system-specification.md)
 - [Kommunikationskonzept](c:\Users\Timo\Worspace\money-printing\docs\04-geschaeft\kommunikationskonzept.md)
 
 ### Neu zu erstellen:
-
 - Designer-Briefing.pdf (für Designer)
-- Technische Spezifikation (Canvas-Größe, Bereiche, etc.)
-- Tutorial-Videos (nach Development)
 - Figma/Illustrator/Photoshop-Vorlagen
+- Tutorial-Videos (nach Phase 1)
 
 ---
 
 *Dokumentiert am 5. Februar 2026*
 *Von Eli, für Timo und das Money-Printing Team*
 
----
-
-**Status:** 🟡 Konzeptphase - Wartet auf Timo's Review & Go-Entscheidung
+**Status:** 🟢 Ready for Review - Two-Phase Approach finalisiert
